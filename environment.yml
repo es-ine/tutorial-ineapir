@@ -1,0 +1,8 @@
+channels:
+  - conda-forge
+dependencies:
+  - r-base
+  - r-tidyverse
+  - r-shinydashboard
+  - r-learnr
+  - r-curl

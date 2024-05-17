@@ -1,0 +1,630 @@
+---
+title: "Tutorial INEapir"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+if (!require("ineapir")) {
+  remotes::install_github("es-ine/ineapir")
+  library(ineapir)
+}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Obtener datos de una tabla
+Para obtener los datos de una tabla es necesario conocer su código identificativo (vea [códigos identificadores de tablas y series](https://es-ine.github.io/datalab/api-json/codigos_identificadores.html)).
+
+Una vez se conoce el código de la tabla de interés, se puede utilizar la función [get_data_table()](https://es-ine.github.io/ineapir/reference/get_data_table.html) para obtener los datos asociados.
+
+### Obtener todos los datos de la tabla
+Por ejemplo, para la tabla [Índices nacionales: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=50902) (Id 50902):
+
+
+```{r tabla1, exercise=TRUE, exercise.eval=FALSE}
+tabla <- get_data_table(idTable = 50902, tip = "A")
+head(tabla[,c("Nombre","Data")])
+```
+
+### Obtener los n últimos datos
+Utilizamos el parámetro nlast. Por ejemplo nlast=5 para obtener los últimos 5 datos:
+
+```{r tabla2, exercise=TRUE}
+tabla <- get_data_table(idTable = 50902, tip = "A", nlast = 5)
+head(tabla[,c("Nombre","Data")])
+```
+
+La columna Data contiene un dataframe por cada fila con todos los periodos
+```{r tabla3, exercise=TRUE}
+tabla <- get_data_table(idTable = 50902, tip = "A", nlast = 5)
+tabla$Data[[1]]
+```
+
+
+Podemos unir todos los dataframe en uno sólo utilizando el parámetro unnest = TRUE
+```{r tabla4, exercise=TRUE}
+tabla <- get_data_table(idTable = 50902, tip = "A", nlast = 5, unnest = TRUE)
+head(tabla[,c("Nombre","T3_Periodo","Anyo","Valor")], n = 10)
+```
+
+### Como filtrar datos de una tabla
+Cuando realizamos una petición de datos de una tabla existe la posibilidad de filtrar por variables y valores de interés utilizando el parámetro filter. Para ello vamos a distinguir los tres tipos posibles de fuentes de las tablas (tablas Tempus 3, tablas pc-axis y tablas tpx).
+
+#### **Tablas Tempus 3**
+Para poder filtrar es necesario conocer los códigos identificadores numéricos (Id) de las variables y los valores por los que queremos filtrar. Por lo tanto, debemos hacer lo siguiente:
+
+1. Obtener información de las variables y valores de la tabla de interés, por ejemplo [Índices por comunidades autónomas: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=50913) (Id = 50913).
+
+```{r tabla5, exercise=TRUE}
+metadata <- get_metadata_table_varval(idTable = 50913)
+metadata[,c("Nombre","Id","Fk_Variable")]
+```
+
+2. Construimos el filtro y pedimos los datos. Por ejemplo, para la variación anual ("3" = "74") del índice general ("762" = "304092") de Castilla y León ("70" = "9003").
+
+```{r tabla6, exercise=TRUE}
+filter <- list("3" = "74" ,      # variable id = 3, valor id = 74
+               "762" = "304092", # variable id = 762, valor id = 304092
+               "70" = "9003"     # variable id = 70, valor id = 9003
+               )
+
+# Obtenemos los datos filtrados 
+ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 2, validate = FALSE)
+ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
+
+Si no se especifica ningún valor y pasamos un carácter vacío, se obtienen todos los valores de la variable. Por ejemplo, con "70" = "" se obtienen todas las Comunidades Autónomas.
+
+```{r tabla6b, exercise=TRUE}
+filter <- list("3" = "74" ,      # variable id = 3, valor id = 74
+               "762" = "304092", # variable id = 762, valor id = 304092
+               "70" = ""         # variable id = 70, todos los valores
+               )
+
+# Obtenemos los datos filtrados 
+ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 2, validate = FALSE)
+ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
+
+También podemos filtrar por varios valores de una misma variable. Por ejemplo, para obtener datos tanto de Castilla y León como del Principado de Asturias ("70" = c("9003", "8999"))
+
+```{r tabla6c, exercise=TRUE}
+filter <- list("3" = "74" ,      # variable id = 3, valor id = 74
+               "762" = "304092", # variable id = 762, valor id = 304092
+               "70" = c("9003", "8999")  # variable id = 70, valores id 9003 y 8999
+               )
+
+# Obtenemos los datos filtrados 
+ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 2, validate = FALSE)
+ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
+
+#### **Tablas pc-axis**
+
+Para poder filtrar es necesario conocer los códigos identificadores alfanuméricos (Código) de las variables y los valores por los que queremos filtrar. Por lo tanto, debemos hacer lo siguiente:
+
+1.  Pedir los metadatos de las series que conforman la tabla de interés [Población por edad (3 grupos de edad), Españoles/Extranjeros, Sexo y Año](https://www.ine.es/jaxi/Tabla.htm?path=/t20/e245/p08/l0/&file=01001.px) (Id = t20/e245/p08/l0/01001.px) con la función get_metadata_table_varval()
+
+```{r tabla7, exercise=TRUE}
+metadata <- get_metadata_table_varval(idTable = "t20/e245/p08/l0/01001.px")
+metadata
+```
+
+2. Construimos el filtro y pedimos los datos. Por ejemplo, para la población de mujeres (sexo=mujeres) españolas (espanolesextranjeros=españoles) de todas las edades (edad3gruposdeedad=totaledades)
+
+```{r tabla8, exercise=TRUE}
+filter <- list(sexo = "mujeres",              
+               espanolesextranjeros = "espanoles",   
+               edad3gruposdeedad = "totaledades" 
+               ) 
+
+# Obtenemos los datos filtrados 
+poblacion <- get_data_table(idTable = "t20/e245/p08/l0/01001.px", unnest = TRUE,
+                            tip = "A", nlast = 5, filter = filter,
+                            validate = FALSE)
+poblacion
+```
+
+#### **Tablas tpx**
+
+Para poder filtrar es necesario conocer los códigos identificadores alfanuméricos de las variables y los valores por los que queremos filtrar. Por lo tanto, debemos hacer lo siguiente:
+
+1.  Pedir los metadatos de las series que conforman la tabla de interés [Extracción nacional por tipo de material y años](https://www.ine.es/jaxi/Tabla.htm?tpx=33387&L=0) (Id = 33387).
+
+```{r tabla9, exercise=TRUE}
+metadata <- get_metadata_table_varval(idTable = 33387)
+metadata
+```
+
+2. Construimos el filtro y pedimos los datos. Por ejemplo, podemos filtrar por varios tipos de material indicando varios valores.
+
+```{r tabla10, exercise=TRUE}
+filter <- list(tipodematerial = c("1biomasa", "2mineralesmetalicosmineralenbruto",
+                                  "3mineralesnometalicos", "4combustiblesfosiles")
+               )
+
+# Obtenemos los datos filtrados 
+materiales <- get_data_table(idTable = 33387, unnest = TRUE, tip = "A",
+                             nlast = 1, filter = filter, validate = FALSE)
+materiales
+```
+
+##### Tablas tpx con códigos identificadores de Tempus 3
+
+Existen tablas tpx que contienen códigos identificadores de Tempus 3 ([Censo agrario 2020](https://www.ine.es/dyngs/INEbase/es/operacion.htm?c=Estadistica_C&cid=1254736176851&menu=resultados&idp=1254735727106)). En este caso además de filtrar usando los códigos alfanuméricos, como para una tabla tpx normal, también se puede filtrar utilizando los códigos numéricos Tempus 3 de las variables y los valores. Para ello, debemos hacer lo siguiente:
+
+1.  Pedir lo metadatos de las series que conforman la tabla de interés [Mano de obra en la explotación, familiar y contratada de manera regular, por relación con el titular, porcentaje de unidad de trabajo-año total (UTAT) y sexo](https://www.ine.es/jaxi/Tabla.htm?tpx=52056&L=0) (Id=52056). A la función [get_metadata_table_varval()](https://es-ine.github.io/ineapir/reference/get_metadata_table_varval.html) también le podemos pasar un filtro (útil para tablas con un gran número de series debido a una gran segmentación territorial), por ejemplo total nacional (NAC = "00"):
+
+```{r tabla11, exercise=TRUE}
+metadata <- get_metadata_table_varval(idTable = 52056,
+                                      filter = list(NAC = "00"))
+head(metadata)
+```
+
+
+2.  Para utilizar los identificadores numéricos añadimos el alias \~id al final (id_varaible\~id=id_valor\~id). Por ejemplo  para el Total Nacional ("349\~id"="16473\~id"), Total tramos UTAT ("916\~id"="391871\~id"), Nº explotaciones ("942\~id"="274282\~id"), Total mano de obra ("999\~id"="391770\~id") y Valor absoluto ("3\~id"="11406\~id") tendríamos:
+
+```{r tabla12, exercise=TRUE}
+filter = list("349~id" = "16473~id",  # variable id = 349, value id = 16473
+              "916~id" = "391871~id", # variable id = 909, value id = 391455
+              "942~id" = "274282~id", # variable id = 942, value id = 274282
+              "999~id" = "391770~id", # variable id = 975, value id = 391438
+              "3~id"   = "11406~id"  # variable id = 3, value id = 11406
+              )
+
+# Obtenemos los datos filtrados 
+explotaciones <- get_data_table(idTable = 52056, unnest = TRUE, tip = "A",
+                             nlast = 1, filter = filter, validate = FALSE)
+explotaciones
+```
+
+### Como filtrar datos de una tabla utilizando literales de los valores
+En lugar de filtrar por códigos numéricos identificadores de variables y valores, es posible
+hacerlo utilizando literales de valores. No obstante, para una mejor respuesta se recomienda el uso de
+los códigos numéricos. Para ello, existen disponibles las siguientes etiquetas predefinidas, las cuales se corresponden con una variable en particular:
+
+|Etiqueta | Variable ID | Comentario|
+|---------|----|--------|
+|nac             | 349 | Nacional|
+|ccaa            | 70  | Comunidades Autónomas |
+|prov            | 115 | Provincias |
+|mun             | 19  | Municipios |
+|isla            | 20  | Islas |
+|grupo           | 762 | Grupos IPC |
+|subgrupo        | 763 | Subgrupos IPC |
+|clase           | 764 | Clases IPC |
+|subclase        | 765 | Subclases IPC |
+|rubrica         | 270 | Rúbricas IPC |
+|grupoespecial   | 269 | Grupos especiales IPC |
+|tipodato        | 3   | Tipo de dato |
+|sexo            | 18  | Sexo |
+|edad1           | 355 | Valores simples de edad |
+|edadt           | 356 | Totales de edad |
+|edadg           | 360 | Grupos de edad |
+|edads           | 357 | Semiintervalos de edad |
+|edad            |355, 356, 357, 360 | Edad |
+|generacion      | 612 | Generación/edades |
+|nacionalidad    | 141 | Nacionalidad |
+|paisnacimiento  | 431, 432 | País de nacimiendo |
+|lugarnacimiento | 97  | Lugar de nacimietno |
+|efectoscorr     | 544 | Corrección de efectos |
+|values          | -    | Contenedor de valores |
+
+#### Ejemplo 1
+Por ejemplo, para la tabla [Índices nacionales: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=50902) (Id 50902)
+
+
+```{r tabla13, exercise=TRUE}
+# Definimos el filtro utilizando etiquetas
+filter <- list(tipodato = "variación anual" , # variable id = 3
+               grupo = "índice general"       # variable id = 762
+               )
+
+# Obtenemos los datos de la tabla
+ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 5, validate = FALSE)
+
+ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
+
+Si utilizamos el contenedor *values*, podemos especificar los literales de los valores
+en el mismo vector en lugar de con etiquetas diferentes:
+
+```{r tabla14, exercise=TRUE}
+# Definimos el filtro con el contenedor values
+filter <- list(values = c("variación anual" , "índice general"))
+
+# Obtenemos los datos de la tabla
+ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 5, validate = FALSE)
+
+ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
+
+
+#### Ejemplo 2
+Por ejemplo, para la tabla [Población residente por fecha, sexo, grupo de edad y nacionalidad](https://www.ine.es/jaxiT3/Tabla.htm?t=56936) (Id 56936)
+
+```{r tabla16, exercise=TRUE}
+# Definimos el filtro utilizando etiquetas
+filter <- list(nacionalidad = "total",
+               sexo = c("hombres", "mujeres"),
+               edad = "todas las edades")
+
+
+# Obtenemos los datos de la tabla
+poblacion <- get_data_table(idTable = 56936, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 1, validate = FALSE)
+
+poblacion[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
+
+Utilizando el contenedor *values* definiríamos el filtro de la siguiente forma:
+
+```{r tabla17, exercise=TRUE}
+# Definimos el filtro utilizando etiquetas
+filter <- list(nacionalidad = "total",
+               values = c("hombres", "mujeres", "todas las edades"))
+
+# Obtenemos los datos de la tabla
+poblacion <- get_data_table(idTable = 56936, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 1, validate = FALSE)
+
+poblacion[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
+
+#### Ejemplo 3
+Por ejemplo, para la tabla [PIB pm Oferta (Indices de volumen encadenado)](https://www.ine.es/jaxiT3/Tabla.htm?t=30679) (Id 30679). Podemos
+utilizar el contenedor *values* aunque no existan etiquetas predefinidas que 
+se correspondan con las variables de la tabla.
+
+```{r tabla15, exercise=TRUE}
+# Definimos el filtro utilizando etiquetas
+filter <- list(values = c("producto interior", "datos ajustados", "variación anual"))
+
+
+# Obtenemos los datos de la tabla
+pib <- get_data_table(idTable = 30679, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 5, validate = FALSE)
+
+pib[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
+
+## Otros casos de uso
+### Obtener datos de una serie
+
+Para obtener los datos de una única serie es necesario conocer su código identificativo (vea códigos identificativos de tablas y series).
+
+Una vez se conoce el código de la serie de interés, se puede utilizar la función [get_data_series()](https://es-ine.github.io/ineapir/reference/get_data_series.html) para obtener los datos de interés.
+
+#### **Obtener el último periodo de una serie**
+Por ejemplo, para la serie con código [IPC251856](https://www.ine.es/consul/serie.do?s=IPC251856)
+
+```{r series1, exercise=TRUE}
+series <- get_data_series(codSeries = "IPC251856", tip = "A")
+series$Data
+```
+
+#### **Obtener los últimos 5 periodos de una serie**
+
+```{r series2, exercise=TRUE}
+series <- get_data_series(codSeries = "IPC251856", tip = "A", nlast = 5, unnest = TRUE)
+series
+```
+
+#### **Obtener los datos entre dos fechas**
+Por ejemplo, entre 01/01/2023 y 01/04/2023
+
+```{r series3, exercise=TRUE}
+series <- get_data_series(codSeries = "IPC251856", tip = "A", unnest = TRUE, dateStart = "2023/01/01", 
+                          dateEnd = "2023/04/01")
+series
+```
+
+#### **Obtener los datos a partir de una fecha**
+Por ejemplo, a partir de 01/01/2024
+
+```{r series4, exercise=TRUE}
+series <- get_data_series(codSeries = "IPC251856", tip = "A", unnest = TRUE, dateStart = "2024/01/01")
+series
+```
+
+### Consultar operaciones estadísticas
+
+La base de datos Tempus3 contiene la información de todas las operaciones estadísticas coyunturales del INE, aquellas cuya periodicidad de difusión de resultados es inferior al año, además de algunas operaciones estadísticas estructurales. La relación de operaciones en Tempus3 cambia a medida que se van integrando en la base de datos. Puede consultarse la lista de operaciones disponibles en cualquier momento con las funciones [get_metadata_operations()](https://es-ine.github.io/ineapir/reference/get_metadata_operations.html)
+
+#### **Obtener las operaciones estadísticas disponibles del sistema**
+
+```{r oper1, exercise=TRUE}
+operations <- get_metadata_operations()
+operations
+```
+
+
+#### **Obtener una operación estadística**
+
+Por ejemplo, la operación IPC utilizando el código alfabético Tempus3 interno (IPC)
+
+```{r oper2, exercise=TRUE}
+operation <- get_metadata_operations(operation = "IPC")
+as.data.frame(operation)
+```
+
+
+### Consultar variables
+
+Se pueden obtener las variables del Sistema utilizando la función [get_metadata_variables()](https://es-ine.github.io/ineapir/reference/get_metadata_variables.html).
+
+#### **Obtener todas las variables del sistema**
+
+```{r var1, exercise=TRUE}
+variables <- get_metadata_variables()
+head(variables)
+```
+
+
+#### **Obtener variables para una operación**
+Por ejemplo, las variables utilizadas en la operación IPC
+
+```{r var2, exercise=TRUE}
+variables <- get_metadata_variables(operation = "IPC")
+variables
+```
+
+### Consultar valores de variables
+Se pueden obtener los valores de una variable utilizando la función [get_metadata_values()](https://es-ine.github.io/ineapir/reference/get_metadata_values.html).
+
+#### **Obtener todos los valores de una variable**
+Por ejemplo, de la variable Provincias (Id=115)
+
+```{r val1, exercise=TRUE}
+values <- get_metadata_values(variable = 115)
+values
+```
+
+#### **Obtener todos los valores de una variable para una operación**
+Por ejemplo, los valores de la variable “Grupos ECOICOP" (Id=762) para la operación IPC (IOE30138 / IPC / 25)
+
+```{r val2, exercise=TRUE}
+values <- get_metadata_values(operation = "IPC", variable = 762)
+values
+```
+
+### Obtener información de tablas
+En lo que se refiere a las tablas, se puede obtener un listado de las tablas de una operación con la función [get_metadata_tables_operation()](https://es-ine.github.io/ineapir/reference/get_metadata_tables_operation.html) y también las variables y valores que la definen con las funciones [get_metadata_table_groups()](https://es-ine.github.io/ineapir/reference/get_metadata_table_groups.html) y [get_metadata_table_values()](https://es-ine.github.io/ineapir/reference/get_metadata_table_values.html).
+
+#### **Obtener todas las tablas de una operación**
+Por ejemplo, el listado de tablas de la operación estadística IPC (IOE30138 / IPC / 25)
+
+```{r infotab1, exercise=TRUE}
+tables <- get_metadata_tables_operation(operation = "IPC")
+head(tables)
+```
+
+#### **Obtener la combinación de variables y valores que definen una tabla**
+
+Una tabla está definida por diferentes grupos o combos de selección y cada uno de ellos por los valores que toman una o varias variables. La consulta de los valores y las variables que constituyen la tabla se puede realizar en dos partes:
+
+1.  Primera parte de la consulta: Grupos o combos de selección que definen a la tabla "[Índices por comunidades autónomas: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=50913)" (Id 50913)
+
+```{r infotab2, exercise=TRUE}
+groups <- get_metadata_table_groups(idTable = 50913)
+groups
+```    
+
+2.  Segunda parte de la consulta: Valores del grupo "Comunidades y Ciudades Autónomas" (Id=110924) perteneciente a la tabla "[Índices por comunidades autónomas: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=50913)" (Id=50913)
+
+```{r infotab3, exercise=TRUE}
+values <- get_metadata_table_values(idTable = 50913, idGroup = 110924)
+values
+```
+
+Alternativamente, podemos utilizar la función [get_metadata_table_varval()](https://es-ine.github.io/ineapir/reference/get_metadata_table_varval.html) en un sólo paso.
+
+```{r infotab4, exercise=TRUE}
+values <- get_metadata_table_varval(idTable = 50913)
+values
+```
+
+### Obtener información de series
+En lo que se refiere a las series, se puede obtener información de una serie con la función [get_metadata_series()](https://es-ine.github.io/ineapir/reference/get_metadata_series.html), así como de las variables y valores que la definen con la función [get_metadata_series_values()](https://es-ine.github.io/ineapir/reference/get_metadata_series_values.html). Además, también se puede obtener un listado de las series de una tabla con la función [get_metadata_series_table()](https://es-ine.github.io/ineapir/reference/get_metadata_series_table.html) y un listado de las series de una operación [get_metadata_series_operation()](https://es-ine.github.io/ineapir/reference/get_metadata_series_operation.html).
+
+#### **Obtener información de una serie**
+Por ejemplo, de la serie que recoge los datos del índice general del IPC ([IPC251852](https://www.ine.es/consul/serie.do?s=IPC251852)) que recoge la variación mensual del Índice de precios de consumo
+
+```{r infoserie1, exercise=TRUE}
+series <- get_metadata_series(codSeries = "IPC251852")
+as.data.frame(series)
+```
+
+#### **Obtener las variables y valores que definen una serie**
+Por ejemplo, de la serie que recoge los datos del índice general del IPC ([IPC251852](https://www.ine.es/consul/serie.do?s=IPC251852))
+
+```{r infoserie2, exercise=TRUE}
+values <- get_metadata_series_values(codSeries = "IPC251852")
+values
+```
+
+#### **Obtener el listado de series de una tabla**
+Por ejemplo, las series de la tabla "[Índices por comunidades autónomas: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Datos.htm?t=50913)" de la operación IPC (Id 50913).
+
+```{r infoserie3, exercise=TRUE}
+series <- get_metadata_series_table(idTable = 50913)
+head(series)
+```
+
+Se puede utilizar el parámetro filter para filtrar por variables y valores. 
+
+```{r infoserie4, exercise=TRUE}
+filter <- list("3" = "74" ,     # variable id = 3, value id = 74
+               "762" = "304092" # variable id = 762, value id = 304092
+               )
+
+# Obtenemos los datos filtrados 
+series <- get_metadata_series_table(idTable = 50913, filter = filter)
+series
+```
+
+#### **Obtener el listado de series de una operación**
+Como el resultado está paginado, se debe utilizar el parámetro page. Consulta de las primeras 500 series pertenecientes a la operación IPC (IOE30138 / IPC / 25)
+
+```{r infoseries5, exercise=TRUE}
+series <- get_metadata_series_operation(operation = "IPC")
+head(series)
+```
+
+Consulta de las segundas 500 series pertenecientes a la operación IPC (IOE30138 / IPC / 25)
+
+```{r infoserie6, exercise=TRUE}
+series <- get_metadata_series_operation(operation = "IPC", page = 2)
+head(series)
+```
+
+### Consultar publicaciones
+
+Se puede obtener un listado de las todas las publicaciones del sistema con la función [get_metadata_publications()](https://es-ine.github.io/ineapir/reference/get_metadata_publications.html). Además, también se pueden consultar las fechas de publicación de una publicación en particular con la función [get_metadata_publication_dates()](https://es-ine.github.io/ineapir/reference/get_metadata_publication_dates.html).
+
+#### **Obtener el litado de todas las publicaciones**
+
+```{r pub1, exercise=TRUE}
+publicaciones <- get_metadata_publications()
+head(publicaciones)
+```
+
+
+#### **Obtener el listado de las publicaciones de una operación**
+Por ejemplo, las publicaciones de la operación del IPC (IOE30138 / IPC / 25)
+
+```{r pub2, exercise=TRUE}
+publicaciones <- get_metadata_publications(operation = "IPC")
+head(publicaciones)
+```
+
+
+#### **Obtener las fechas de publicación de una publicación**
+Por ejemplo, de la publicación "Índice de Precios de Consumo" (Id=8)
+
+```{r pub3, exercise=TRUE}
+fechas <- get_metadata_publication_dates(publication = 8, tip = "A")
+head(fechas)
+```
+
+## Tips
+### Parámetro`verbose`
+Cuando se utiliza el parámetro `verbose = TRUE`, se muestra una serie de información en la consola inlcuyendo la URL de llamada a la API.
+
+```{r verbose, exercise=TRUE}
+variables <- get_metadata_variables(operation = "IPC", verbose = TRUE)
+```
+
+###  Parámetro `validate`
+Si no se necesitan validar los parámetros de la función entonces se puede establecer `validate = FALSE`.
+
+```{r validate_1, exercise=TRUE}
+variables <- get_metadata_variables(operation = "IPC", verbose = TRUE,
+                                    validate = FALSE)
+```
+
+Es útil cuando estamos utilizando un filtro y estamos seguros de los ids utilizados para variables y valores. Desactivar la validación significa hacer menos llamadas de verificación a la API.
+
+```{r validate_2, exercise=TRUE}
+filter <- list("3" = "74" ,      # variable id = 3, valor id = 74
+               "762" = "304092", # variable id = 762, valor id = 304092
+               "70" = "9003"     # variable id = 70, valor id = 9003
+               )
+
+# Con verbose = TRUE and validate = TRUE
+ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 2, verbose = TRUE, validate = TRUE)
+ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
+
+```{r validate_3, exercise=TRUE}
+filter <- list("3" = "74" ,      # variable id = 3, valor id = 74
+               "762" = "304092", # variable id = 762, valor id = 304092
+               "70" = "9003"     # variable id = 70, valor id = 9003
+               )
+
+# Con verbose = TRUE and validate = FALSE
+ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 2, verbose = TRUE, validate = FALSE)
+ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
+
+
+
+### Parámetro `lang`
+Es posible obtener información en Inglés utilizando el parámetro `lang = "EN"` en algunas funciones.
+
+```{r lang_1, exercise=TRUE}
+variables <- get_metadata_variables(operation = "IPC", lang = "EN")
+variables
+```
+
+### Parámetro `unnest`
+Cuando obtenemos datos datablas y series utilizando las funciones `get_data_table()` y `get_data_series()`, la columna `$Data` que contiene los valores de los periodos es una lista de dataframes, uno por fila.
+
+```{r unnest_1, exercise=TRUE}
+# Definimos un filtro
+filter <- list(values = c("variación anual" , "variación mensual", "índice general"))
+
+# Obtenemos los datos con unnest = FALSE
+ipc <- get_data_table(idTable = 50902, filter = filter, tip = "A", nlast = 3)
+
+# Tenemos dos filas (series)
+ ipc[,c("Nombre", "Data")]
+ 
+# La columna Data es una lista de dos dataframes, uno por fila 
+ ipc$Data
+```
+
+Si queremos obtener un sólo dataframe con todos los valores utilizamos `unnest = TRUE`.
+
+```{r unnest_2, exercise=TRUE}
+# Definimos un filtro
+filter <- list(values = c("variación anual" , "variación mensual", "índice general"))
+
+# Obtenemos los datos con unnest = FALSE
+ipc <- get_data_table(idTable = 50902, filter = filter, tip = "A",
+                      nlast = 3, unnest = TRUE)
+
+# Único dataframe con 6 filas
+ipc[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
+```
+
+### Parámetros `metanames` y `metacodes`
+Cuando utilizamos el parámetro `metanames = TRUE` obtenemos columnas adicionales que contienen los nombres de los valores extraídos de los metadatos. Para obtener columnas adicionales que contengan los códigos e ids de los valores utilizamos `metacodes = TRUE`.
+
+
+```{r extractmetadata, exercise=TRUE}
+# Definimos un filtro
+filter <- list(nacionalidad = "total", sexo = c("hombres", "mujeres"))
+
+# Obtenemos los datos con metanames = TRUE y metacodes = TRUE
+poblacion <- get_data_table(idTable = 56936, filter = filter, validate = FALSE, 
+                            tip = "AM", unnest = TRUE, nlast = 1,
+                            metanames =  TRUE, metacodes = TRUE)
+
+head(poblacion)
+```
+
+### Filtrando con expresiones regulares
+Cuando se utilizan las etiquetas predefinidas para filtrar utilizando literales
+de los valores, podemos incluir expresiones regulares.
+Por ejemplo, para la tabla [Población residente por fecha, sexo y edad (desde 1971)](https://www.ine.es/jaxiT3/Tabla.htm?t=56934) (Id 56934)
+
+```{r expreg, exercise=TRUE}
+# Difinimos un filtro con una expresión regular para edades entre 20 y 25 años
+filter <- list(sexo = "total", edad = "2[0-5]+")
+
+# Obtenemos los datos
+poblacion <- get_data_table(idTable = 56934, filter = filter, tip = "A", nlast = 1,
+                      unnest = TRUE, validate = FALSE)
+
+poblacion[,c("Nombre", "Anyo", "Valor")]
+```
