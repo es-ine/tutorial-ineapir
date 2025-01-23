@@ -1,5 +1,5 @@
 ---
-title: "Tutorial INEapir"
+title: "Tutorial ineapir"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
@@ -29,7 +29,7 @@ head(tabla[,c("Nombre","Data")])
 ```
 
 ### Obtener los n últimos datos
-Utilizamos el parámetro nlast. Por ejemplo nlast=5 para obtener los últimos 5 datos:
+Utilizamos el parámetro `nlast`. Por ejemplo `nlast = 5´ para obtener los últimos 5 datos:
 
 ```{r tabla2, exercise=TRUE}
 tabla <- get_data_table(idTable = 50902, tip = "A", nlast = 5)
@@ -43,7 +43,7 @@ tabla$Data[[1]]
 ```
 
 
-Podemos unir todos los dataframe en uno sólo utilizando el parámetro unnest = TRUE
+Podemos unir todos los dataframe en uno sólo utilizando el parámetro `unnest = TRUE`
 ```{r tabla4, exercise=TRUE}
 tabla <- get_data_table(idTable = 50902, tip = "A", nlast = 5, unnest = TRUE)
 head(tabla[,c("Nombre","T3_Periodo","Anyo","Valor")], n = 10)
@@ -108,7 +108,7 @@ ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 
 Para poder filtrar es necesario conocer los códigos identificadores alfanuméricos (Código) de las variables y los valores por los que queremos filtrar. Por lo tanto, debemos hacer lo siguiente:
 
-1.  Pedir los metadatos de las series que conforman la tabla de interés [Población por edad (3 grupos de edad), Españoles/Extranjeros, Sexo y Año](https://www.ine.es/jaxi/Tabla.htm?path=/t20/e245/p08/l0/&file=01001.px) (Id = t20/e245/p08/l0/01001.px) con la función get_metadata_table_varval()
+1.  Pedir los metadatos de las series que conforman la tabla de interés [Población por edad (3 grupos de edad), Españoles/Extranjeros, Sexo y Año](https://www.ine.es/jaxi/Tabla.htm?path=/t20/e245/p08/l0/&file=01001.px) (Id = t20/e245/p08/l0/01001.px) con la función [get_metadata_table_varval()](https://es-ine.github.io/ineapir/reference/get_metadata_table_varval.html)
 
 ```{r tabla7, exercise=TRUE}
 metadata <- get_metadata_table_varval(idTable = "t20/e245/p08/l0/01001.px")
@@ -567,7 +567,7 @@ variables
 ```
 
 ### Parámetro `unnest`
-Cuando obtenemos datos datablas y series utilizando las funciones `get_data_table()` y `get_data_series()`, la columna `$Data` que contiene los valores de los periodos es una lista de dataframes, uno por fila.
+Cuando obtenemos datos de tablas y series utilizando las funciones `get_data_table()` y `get_data_series()`, la columna `$Data` que contiene los valores de los periodos es una lista de dataframes, uno por fila.
 
 ```{r unnest_1, exercise=TRUE}
 # Definimos un filtro
@@ -619,7 +619,7 @@ de los valores, podemos incluir expresiones regulares.
 Por ejemplo, para la tabla [Población residente por fecha, sexo y edad (desde 1971)](https://www.ine.es/jaxiT3/Tabla.htm?t=56934) (Id 56934)
 
 ```{r expreg, exercise=TRUE}
-# Difinimos un filtro con una expresión regular para edades entre 20 y 25 años
+# Definimos un filtro con una expresión regular para edades entre 20 y 25 años
 filter <- list(sexo = "total", edad = "2[0-5]+")
 
 # Obtenemos los datos
