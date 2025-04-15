@@ -49,6 +49,111 @@ tabla <- get_data_table(idTable = 50902, tip = "A", nlast = 5, unnest = TRUE)
 head(tabla[,c("Nombre","T3_Periodo","Anyo","Valor")], n = 10)
 ```
 
+### Obtener datos por fecha
+Se pueden utilizar los argumentos `dateStart` y `dateEnd` para filtrar los datos por fecha.
+El formato requerido es yyyy/mm/dd
+
+#### Fecha única
+Para obtener los datos de una fecha en particular, `dateStart` y `dateEnd`
+deben ser iguales.
+```{r tabla4b, exercise=TRUE}
+# filtro por variables y valores
+filter <- list("3" = "74" ,     # variable id = 3, value id = 74
+               "762" = "304092" # variable id = 762, value id = 304092
+               )
+
+# Filtrar datos para una fecha en particular
+tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", validate = FALSE,
+                      dateStart = "2025/01/01", dateEnd = "2025/01/01")
+tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
+```
+
+#### Rango de fechas
+Para obtener un rango de fechas, `dateEnd` debe ser mayor que `dateStart`.
+```{r tabla4c, exercise=TRUE}
+# filtro por variables y valores
+filter <- list("3" = "74" ,     # variable id = 3, value id = 74
+               "762" = "304092" # variable id = 762, value id = 304092
+               )
+
+# Filtrar datos para un rango de fechas
+tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", validate = FALSE,
+                      dateStart = "2024/01/01", dateEnd = "2024/12/01")
+tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
+```
+
+#### Rango de fechas abierto
+Si no se especifica `dateEnd`, se devuelven los datos desde `dateStart`.
+```{r tabla4d, exercise=TRUE}
+# filtro por variables y valores
+filter <- list("3" = "74" ,     # variable id = 3, value id = 74
+               "762" = "304092" # variable id = 762, value id = 304092
+               )
+
+# Filtrar datos para un rango de fechas abierto
+tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", validate = FALSE,
+                      dateStart = "2025/01/01")
+tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
+```
+
+#### Fechas múltiples
+Para obtener los datos de unas fechas en particular, `dateStart` y `dateEnd`
+deben ser vectores e iguales.
+```{r tabla4e, exercise=TRUE}
+# filtro por variables y valores
+filter <- list("3" = "74" ,     # variable id = 3, value id = 74
+               "762" = "304092" # variable id = 762, value id = 304092
+               )
+
+# Filtrar datos para varias fechas
+tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", validate = FALSE,
+                      dateStart = c("2023/01/01", "2024/01/01", "2025/01/01"), 
+                      dateEnd = c("2023/01/01", "2024/01/01", "2025/01/01"))
+tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
+```
+
+#### Rango de fechas múltiple
+Para obtener los datos de varios rangos de fechas, `dateStart` y `dateEnd`
+deben ser vectores. Las fechas de `dateEnd` constituyen el fin del rango para 
+cada una de las fechas en `dateStart` en la misma posición del vector.
+
+```{r tabla4g, exercise=TRUE}
+# filtro por variables y valores
+filter <- list("3" = "74" ,     # variable id = 3, value id = 74
+               "762" = "304092" # variable id = 762, value id = 304092
+               )
+
+# Filtrar datos para un rango de fechas múltiple
+tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", validate = FALSE,
+                      dateStart = c("2023/01/01", "2024/01/01", "2025/01/01"),
+                      dateEnd = c("2023/03/01", "2024/03/01", "2025/03/01"))
+tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
+```
+
+#### Rango de fechas múltiple y rango abierto final
+Si el vector de fechas `dateEnd` contiene una fecha menos que el vector de fechas
+`dateStart`, el último rango de fechas es abierto con fecha inicial igual a la última
+fecha de `dateStart`.
+
+```{r tabla4h, exercise=TRUE}
+# filtro por variables y valores
+filter <- list("3" = "74" ,     # variable id = 3, value id = 74
+               "762" = "304092" # variable id = 762, value id = 304092
+               )
+
+# Filtrar datos para un rango de fechas múltiple y rango abierto final
+tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", validate = FALSE,
+                      dateStart = c("2023/01/01", "2024/01/01", "2025/01/01"), 
+                      dateEnd = c("2023/03/01", "2024/03/01"))
+tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
+```
+
 ### Como filtrar datos de una tabla
 Cuando realizamos una petición de datos de una tabla existe la posibilidad de filtrar por variables y valores de interés utilizando el parámetro filter. Para ello vamos a distinguir los tres tipos posibles de fuentes de las tablas (tablas Tempus 3, tablas pc-axis y tablas tpx).
 
@@ -104,6 +209,19 @@ ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
 
+Si añadimos un signo menos a un valor, este se excluye.
+```{r tabla6d, exercise=TRUE}
+filter <- list("3" = "74" ,       # variable id = 3, valor id = 74
+               "762" = "-304092", # excluir variable id = 762, valor id = 304092
+               "70" = "9003"      # variable id = 70, valor id = 9003
+               )
+
+# Obtenemos los datos filtrados 
+ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 2, validate = FALSE)
+ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
+
 #### **Tablas pc-axis**
 
 Para poder filtrar es necesario conocer los códigos identificadores alfanuméricos (Código) de las variables y los valores por los que queremos filtrar. Por lo tanto, debemos hacer lo siguiente:
@@ -130,6 +248,20 @@ poblacion <- get_data_table(idTable = "t20/e245/p08/l0/01001.px", unnest = TRUE,
 poblacion
 ```
 
+Si añadimos un signo menos a un valor, este se excluye.
+```{r tabla8b, exercise=TRUE}
+filter <- list(sexo = "mujeres",              
+               espanolesextranjeros = "-total",   
+               edad3gruposdeedad = "totaledades" 
+               ) 
+
+# Obtenemos los datos filtrados 
+poblacion <- get_data_table(idTable = "t20/e245/p08/l0/01001.px", unnest = TRUE,
+                            tip = "A", nlast = 5, filter = filter,
+                            validate = FALSE)
+poblacion
+```
+
 #### **Tablas tpx**
 
 Para poder filtrar es necesario conocer los códigos identificadores alfanuméricos de las variables y los valores por los que queremos filtrar. Por lo tanto, debemos hacer lo siguiente:
@@ -146,6 +278,18 @@ metadata
 ```{r tabla10, exercise=TRUE}
 filter <- list(tipodematerial = c("1biomasa", "2mineralesmetalicosmineralenbruto",
                                   "3mineralesnometalicos", "4combustiblesfosiles")
+               )
+
+# Obtenemos los datos filtrados 
+materiales <- get_data_table(idTable = 33387, unnest = TRUE, tip = "A",
+                             nlast = 1, filter = filter, validate = FALSE)
+materiales
+```
+
+Si añadimos un signo menos a un valor, este se excluye.
+```{r tabla10b, exercise=TRUE}
+filter <- list(tipodematerial = c("-1biomasa", "-2mineralesmetalicosmineralenbruto",
+                                  "-3mineralesnometalicos", "-4combustiblesfosiles")
                )
 
 # Obtenemos los datos filtrados 
@@ -246,6 +390,19 @@ ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
 
+Si añadimos un signo menos a un valor, este se excluye.
+```{r tabla13b, exercise=TRUE}
+# Definimos el filtro utilizando etiquetas
+filter <- list(tipodato = "variación anual" , # variable id = 3
+               grupo = "-índice general"      # variable id = 762
+               )
+
+# Obtenemos los datos de la tabla
+ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 5, validate = FALSE)
+
+ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
 
 #### Ejemplo 2
 Por ejemplo, para la tabla [Población residente por fecha, sexo, grupo de edad y nacionalidad](https://www.ine.es/jaxiT3/Tabla.htm?t=56936) (Id 56936)
@@ -270,6 +427,21 @@ Utilizando el contenedor *values* definiríamos el filtro de la siguiente forma:
 # Definimos el filtro utilizando etiquetas
 filter <- list(nacionalidad = "total",
                values = c("hombres", "mujeres", "todas las edades"))
+
+# Obtenemos los datos de la tabla
+poblacion <- get_data_table(idTable = 56936, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 1, validate = FALSE)
+
+poblacion[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
+
+Si añadimos un signo menos a un valor, este se excluye.
+```{r tabla16b, exercise=TRUE}
+# Definimos el filtro utilizando etiquetas
+filter <- list(nacionalidad = "total",
+               sexo = "total",
+               edad = "-todas las edades")
+
 
 # Obtenemos los datos de la tabla
 poblacion <- get_data_table(idTable = 56936, filter = filter, unnest = TRUE,

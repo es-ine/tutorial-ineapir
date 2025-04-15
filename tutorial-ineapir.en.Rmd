@@ -49,6 +49,112 @@ tabla <- get_data_table(idTable = 50902, tip = "A", nlast = 5, unnest = TRUE, la
 head(tabla[,c("Nombre","T3_Periodo","Anyo","Valor")], n = 10)
 ```
 
+### Obtaining data by date
+The arguments `dateStart` and `dateEnd` allow to filter data by date.
+The required format is yyyy/mm/dd
+
+#### Single date
+To get data for a particular date, `dateStart` and `dateEnd` must be equal.
+
+```{r tabla4b, exercise=TRUE}
+# Filter for variables and values
+filter <- list("3" = "74" ,     # variable id = 3, value id = 74
+               "762" = "304092" # variable id = 762, value id = 304092
+               )
+
+# Request data for a particular date
+tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", validate = FALSE,
+                      dateStart = "2025/01/01", dateEnd = "2025/01/01")
+tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
+```
+
+#### Single range date
+To get a date range, `dateEnd` must be greater than `dateStart`.
+
+```{r tabla4c, exercise=TRUE}
+# Filter for variables and values
+filter <- list("3" = "74" ,     # variable id = 3, value id = 74
+               "762" = "304092" # variable id = 762, value id = 304092
+               )
+
+# Request data for a range date
+tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", validate = FALSE,
+                      dateStart = "2024/01/01", dateEnd = "2024/12/01")
+tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
+```
+
+#### Open range date
+If `dateEnd` is not specified, data is returned from `dateStart`.
+
+```{r tabla4d, exercise=TRUE}
+# Filter for variables and values
+filter <- list("3" = "74" ,     # variable id = 3, value id = 74
+               "762" = "304092" # variable id = 762, value id = 304092
+               )
+
+# Request data for a open range date
+tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", validate = FALSE,
+                      dateStart = "2025/01/01")
+tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
+```
+
+#### Mutiple dates
+To retrieve data for specific dates, `dateStart` and `dateEnd` must be vectors and equal.
+
+```{r tabla4e, exercise=TRUE}
+# Filter for variables and values
+filter <- list("3" = "74" ,     # variable id = 3, value id = 74
+               "762" = "304092" # variable id = 762, value id = 304092
+               )
+
+# Request data for multiple dates
+tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", validate = FALSE,
+                      dateStart = c("2023/01/01", "2024/01/01", "2025/01/01"), 
+                      dateEnd = c("2023/01/01", "2024/01/01", "2025/01/01"))
+tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
+```
+
+#### Multiple range dates
+To retrieve data from multiple date ranges, `dateStart` and `dateEnd` must be vectors.
+The dates in `dateEnd` represent the end of the range for each of the dates in `dateStart`
+at the same position in the vector.
+
+```{r tabla4g, exercise=TRUE}
+# Filter for variables and values
+filter <- list("3" = "74" ,     # variable id = 3, value id = 74
+               "762" = "304092" # variable id = 762, value id = 304092
+               )
+
+# Request data for multiple range dates
+tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", validate = FALSE,
+                      dateStart = c("2023/01/01", "2024/01/01", "2025/01/01"),
+                      dateEnd = c("2023/03/01", "2024/03/01", "2025/03/01"))
+tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
+```
+
+#### Multiple range dates and final open range
+If the date vector `dateEnd` contains one less date than the date vector `dateStart`,
+the last date range is opened with a start date equal to the last date of `dateStart`.
+
+```{r tabla4h, exercise=TRUE}
+# Filter for variables and values
+filter <- list("3" = "74" ,     # variable id = 3, value id = 74
+               "762" = "304092" # variable id = 762, value id = 304092
+               )
+
+# Request data for multiple range dates and final open range
+tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", validate = FALSE,
+                      dateStart = c("2023/01/01", "2024/01/01", "2025/01/01"), 
+                      dateEnd = c("2023/03/01", "2024/03/01"))
+tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
+```
+
 ### Filtering data from tables
 When we request data from tables there is the possibility of filtering data on the fly using metadata information about the variables and  values that define the time series. In order to filter, it is necessary to set the argument `filter` of the [get_data_table()](https://es-ine.github.io/ineapir/reference/get_data_table.html) function, which is a list() of variables and the values they take. There are three approaches to build the filter depending on the type of the table (Tempus 3, pc-axis and tpx).
 
@@ -104,6 +210,18 @@ ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
 
+If we add a minus sign to a value, it is excluded.
+```{r tabla6d, exercise=TRUE}
+filter <- list("3" = "74" ,       # variable id = 3, valor id = 74
+               "762" = "-304092", # exclude variable id = 762, valor id = 304092
+               "70" = "9003"      # variable id = 70, valor id = 9003
+               )
+
+# Request data using the filter
+ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 2, validate = FALSE)
+ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
 #### **pc-axis tables**
 
 In order to filter, it is necessary to know the alphanumeric identifier codes (Código) of the variables and the values by which we want to filter. Therefore, we must do the following:
@@ -130,6 +248,20 @@ poblacion <- get_data_table(idTable = "t20/e245/p08/l0/01001.px", unnest = TRUE,
 poblacion
 ```
 
+If we add a minus sign to a value, it is excluded.
+```{r tabla8b, exercise=TRUE}
+filter <- list(sex= "females",              
+               spaniardsforeigners= "-total",   
+               age3agegroups = "totalages" 
+               ) 
+
+# Request data using the filter
+poblacion <- get_data_table(idTable = "t20/e245/p08/l0/01001.px", unnest = TRUE,
+                            tip = "A", nlast = 5, filter = filter,
+                            validate = FALSE, lang = "EN")
+poblacion
+```
+
 #### **tpx tables**
 
 In order to filter, it is necessary to know the alphanumeric identifier codes (Código) of the variables and the values by which we want to filter. Therefore, we must do the following:
@@ -146,6 +278,18 @@ metadata
 ```{r tabla10, exercise=TRUE}
 filter <- list(typeofindicator = c("1biomass", "2metaloresgrossores",
                                   "3nonmetallicminerals", "4fossilfuels")
+               )
+
+# Request data using the filter
+materiales <- get_data_table(idTable = 33387, unnest = TRUE, tip = "A",
+                             nlast = 1, filter = filter, validate = FALSE, lang = "EN")
+materiales
+```
+
+If we add a minus sign to a value, it is excluded.
+```{r tabla10b, exercise=TRUE}
+filter <- list(typeofindicator = c("-1biomass", "-2metaloresgrossores",
+                                  "-3nonmetallicminerals", "-4fossilfuels")
                )
 
 # Request data using the filter
@@ -245,6 +389,20 @@ ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
 
+If we add a minus sign to a value, it is excluded.
+```{r tabla13b, exercise=TRUE}
+# Filter using shortcuts (CPI)
+filter <- list(datatype = "annual" , # variable id = 3
+               group = "-overall index"       # variable id = 762
+               )
+
+# Request data using the filter
+ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 5, validate = FALSE, lang = "EN")
+
+ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
+
 #### Example 2
 We are going to filter the table [Resident population by date, sex, age group and nationality](https://www.ine.es/jaxiT3/Tabla.htm?t=56936&L=1) (Id 56936)
 
@@ -277,6 +435,20 @@ poblacion <- get_data_table(idTable = 56936, filter = filter, unnest = TRUE,
 poblacion[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
 
+If we add a minus sign to a value, it is excluded.
+```{r tabla16b, exercise=TRUE}
+# Filter using shortcuts (population)
+filter <- list(nationality = "total",
+               sex = "total",
+               age = "-all ages")
+
+
+# Request data using the filter
+poblacion <- get_data_table(idTable = 56936, filter = filter, unnest = TRUE,
+                      tip = "A", nlast = 1, validate = FALSE, lang = "EN")
+
+poblacion[,c("Nombre","T3_Periodo","Anyo","Valor")]
+```
 #### Example 3
 We are going to filter the table [GDP mp Supply (Chain-linked volume indices)](https://www.ine.es/jaxiT3/Tabla.htm?t=67822) (Id 67822). 
 We can use the *values* wrapper even if there are no predefined shortcuts that correspond to the variables in the table.
