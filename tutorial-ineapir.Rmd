@@ -567,6 +567,96 @@ values <- get_metadata_values(operation = "IPC", variable = 762)
 values
 ```
 
+### Consultar estructuras jerárquicas de valores
+Hay ciertos valores que pertenecen a una estructura jerárquica y pueden tener 
+padres e hijos. Para obtener los hijos de un valor específico, podemos usar la
+función `get_metadata_values()` con los argumentos `variable` y `value`. 
+
+#### **Obtener los hijos de un valor**
+Por ejemplo, si queremos obtener las provincias de Galicia:
+
+```{r tree1, exercise=TRUE}
+# Variable: Comunidades Autonomas (id=70)
+# Value: Galicia (id=9008)
+# Obtener los hijos de id=9008 (provincias de Galicia)
+provincias <- get_metadata_values(variable = 70, value = 9008)
+provincias
+```
+
+#### **Obtener árbol jerárquico de un valor**
+Si queremos profundizar en la estructura jerárquica podemos utilizar el
+argumento jerarquía, que representa la profundidad.
+
+```{r tree2, exercise=TRUE}
+# Variable: Comunidades Autonomas (id=70)
+# Value: Galicia (id=9008)
+# Obtener los hijos de cada provincia (municipios de Galicia)
+municipios <- get_metadata_values(variable = 70, value = 9008, hierarchy = 1)
+head(municipios)
+```
+
+#### **Obtener árbol jerárquico de una variable**
+Si queremos que la raíz del árbol sea la variable, no especificamos ningún valor.
+
+```{r tree3, exercise=TRUE}
+# Variable: Comunidades Autonomas (id=70)
+# Obtener los hijos de cada valor de Comunidad Autonoma
+provincias <- get_metadata_values(variable = 70, hierarchy = 1)
+head(provincias, n = 52)
+```
+
+#### **Filtrar variables y valores en un árbol jerárquico**
+Además, podemos filtrar las variables y valores que sólo nos interesan con
+el argumento `filter`.
+
+**1. Ejemplo 1. Provincias de galicia**
+```{r tree4, exercise=TRUE}
+# Definimos el filtro como una lista de variables y valores
+filter <- list("70" = 9008 # variable id = 70, value id = 9008 (Galicia)
+               )
+# Obtener los hijos de id=9008 (provincias de Galicia)
+provincias <- get_metadata_values(variable = 70, filter = filter, hierarchy = 1,
+                                 validate = FALSE)
+provincias
+```
+
+**2. Ejemplo 2. Todas las provincias**
+```{r tree5, exercise=TRUE}
+# Definimos el filtro como una lista de variables y valores
+filter <- list("70" = 8995:9015, # variable id = 70
+               "115" =  "" # variable id = 115, todos los valores
+               )
+# Obtener los hijos de id=70 (provincias de España)
+provincias <- get_metadata_values(variable = 70, filter = filter, hierarchy = 1,
+                                 validate = FALSE)
+provincias
+```
+
+**3. Ejemplo 3. Municipios de Lugo**
+```{r tree6, exercise=TRUE}
+# Definimos el filtro como una lista de variables y valores
+filter <- list("70" = 9008, # variable id = 70, value id = 9008 (Galicia) 
+               "115" = 28 # variable id = 115, value id = 28 (Lugo)
+               )
+# Obtener los hiijos de id=28 (municipios de la provincia de Lugo)
+municipios <- get_metadata_values(variable = 70, filter = filter, 
+                                      hierarchy = 2, validate = FALSE)
+municipios
+```
+
+**4. Ejemplo 4. Secciones censales del municipio de Lugo**
+```{r tree7, exercise=TRUE}
+# Definimos el filtro como una lista de variables y valores
+filter <- list("70" = 9008, # variable id = 70, value id = 9008 (Galicia)  
+               "115" =  28 , # variable id = 115, value id = 28 (Lugo)
+               "19" = 570 # variable id = 19, value id = 570 (Lugo)
+               )
+# Obtener los hijios de id=570 (secciones censales del municipios de Lugo)
+secciones <- get_metadata_values(variable = 70, filter = filter, hierarchy = 4,
+                                validate = FALSE)
+secciones
+```
+
 ### Obtener información de tablas
 En lo que se refiere a las tablas, se puede obtener un listado de las tablas de una operación con la función [get_metadata_tables_operation()](https://es-ine.github.io/ineapir/reference/get_metadata_tables_operation.html) y también las variables y valores que la definen con las funciones [get_metadata_table_groups()](https://es-ine.github.io/ineapir/reference/get_metadata_table_groups.html) y [get_metadata_table_values()](https://es-ine.github.io/ineapir/reference/get_metadata_table_values.html).
 

@@ -536,6 +536,95 @@ variables <- get_metadata_variables(lang = "EN")
 head(variables)
 ```
 
+### Obtaining hierarchical value structures
+There are certain values that belong to a hierarchical structure and can have
+parents and children. To obtain the children of a specific value, we can use 
+the `get_metadata_values()` function with the `variable` and `value` arguments.
+
+#### **Obtaining children of a value**
+For example, if we want to find the provinces of Galicia:
+
+```{r tree1, exercise=TRUE}
+# Variable: Autonomous communities (id=70)
+# Value: Galicia (id=9008)
+# Get the children of id=9008 (provinces of Galicia)
+provinces <- get_metadata_values(variable = 70, value = 9008)
+provinces
+```
+
+#### **Obtaining the hierarchy tree of a value**
+If we want to go deeper into the hierarchical structure we can use the
+hierarchy argument, which represents the depth.
+
+```{r tree2, exercise=TRUE}
+# Variable: Autonomous communities (id=70)
+# Value: Galicia (id=9008)
+# Get the children of each province (municipalities of Galicia)
+municipalities <- get_metadata_values(variable = 70, value = 9008, hierarchy = 1)
+head(municipalities)
+```
+
+#### **Obtaining the hierarchy tree of a variable**
+If we want the root of the tree to be the variable, we do not specify any value.
+
+```{r tree3, exercise=TRUE}
+# Variable: Autonomous communities (id=70)
+# Get the children of each Autonomous communities (provinces)
+provinces <- get_metadata_values(variable = 70, hierarchy = 1)
+head(provinces, n = 52)
+```
+
+#### **Filter variables and values ​​in a hierarchical tree**
+Additionally, we can filter out the variables and values that only interest
+us with the `filter` argument.
+
+**1. Ejemplo 1. Provinces of Galicia**
+```{r tree4, exercise=TRUE}
+# We define the filter as a list of variables and values
+filter <- list("70" = 9008 # variable id = 70, value id = 9008 (Galicia)
+               )
+# Get the children of id=9008 (provinces of Galicia)
+provinces <- get_metadata_values(variable = 70, filter = filter, hierarchy = 1,
+                                 validate = FALSE)
+provinces
+```
+
+**2. Ejemplo 2. Provinces of Spain**
+```{r tree5, exercise=TRUE}
+# We define the filter as a list of variables and values
+filter <- list("70" = 8995:9015, # variable id = 70
+               "115" =  "" # variable id = 115, all values
+               )
+# Get the children of id=70 (provinces of Spain)
+provinces <- get_metadata_values(variable = 70, filter = filter, hierarchy = 1,
+                                 validate = FALSE)
+provinces
+```
+
+**3. Ejemplo 3. Municipalities of Lugo**
+```{r tree6, exercise=TRUE}
+# We define the filter as a list of variables and values
+filter <- list("70" = 9008, # variable id = 70, value id = 9008 (Galicia) 
+               "115" = 28 # variable id = 115, value id = 28 (Lugo)
+               )
+# Get the children of id=28 (municipalities of Lugo province)
+municipalities <- get_metadata_values(variable = 70, filter = filter, 
+                                      hierarchy = 2, validate = FALSE)
+municipalities
+```
+
+**4. Ejemplo 4. Census sections of Lugo municipality**
+```{r tree7, exercise=TRUE}
+# We define the filter as a list of variables and values
+filter <- list("70" = 9008, # variable id = 70, value id = 9008 (Galicia)  
+               "115" =  28 , # variable id = 115, value id = 28 (Lugo)
+               "19" = 570 # variable id = 19, value id = 570 (Lugo)
+               )
+# Get the children of id=570 (census sections of Lugo municipality)
+sections <- get_metadata_values(variable = 70, filter = filter, hierarchy = 4,
+                                validate = FALSE)
+sections
+```
 
 #### **Obtaining all the variables for an statistical operation**
 In addition, if we set the `operation` argument we obtain the variables used in an statistical operation.
