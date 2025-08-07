@@ -883,3 +883,59 @@ poblacion <- get_data_table(idTable = 56934, filter = filter, tip = "A", nlast =
 
 poblacion[,c("Nombre", "Anyo", "Valor")]
 ```
+
+## Limitations of the JSON API Web Service
+
+When querying data from tables, there are volume restrictions on the amount of
+data returned by the API. For example, when querying all the data in the
+following table, the message "No puede mostrarse por restricciones de volumen"
+appears.
+
+```{r volumen1, exercise = TRUE}
+t <- get_data_table(idTable = 56938, nlast = 1)
+```
+
+
+In this case, we'll need to run several queries on the table using the data
+filter. First, let's see the dimensions of the table.
+
+```{r volumen2, exercise = TRUE}
+# We obtain the id of the table groups (dimensions)
+groups <- get_metadata_table_groups(idTable = 56938, lang = "EN")
+groups
+```
+
+Now, for example, let's look at the values of the nationality group.
+
+```{r volumen3, exercise = TRUE}
+# We obtain the id of the variables and values from the nationality group
+nationality <- get_metadata_table_values(idTable = 56938, idGroup = 113349, lang = "EN")
+nationality
+```
+
+
+We can use nationality to split the initial query and instead run 14 different
+queries, one for each nationality value.
+
+```{r volumen4, exercise = TRUE}
+# We obtain the id of the table groups (dimensions)
+groups <- get_metadata_table_groups(idTable = 56938, lang = "EN")
+
+# We obtain the id of the variables and values from the nationality group
+nationality <- get_metadata_table_values(idTable = 56938, idGroup = 113349, lang = "EN")
+
+data <- NULL
+for(i in 1:nrow(nationality[1:2,])){
+  filter <- list()
+  filter[[as.character(nationality$Fk_Variable[i])]] <- nationality$Id[i]
+  
+  # We consult the table with the nationality filter
+  tmp <- get_data_table(idTable = 56938, nlast = 1, filter = filter, validate = FALSE, lang = "EN")
+
+  # We concatenate the different queries
+  data <- rbind(data, tmp)
+  
+  cat(sprintf("- Query %s/%s. Nationality: %s (%s rows | %s total rows)\n", i, nrow(nationality), nationality$Nombre[i], nrow(tmp), nrow(data)))
+}
+```
+

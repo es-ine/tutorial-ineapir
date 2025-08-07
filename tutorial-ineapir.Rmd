@@ -890,3 +890,56 @@ poblacion <- get_data_table(idTable = 56934, filter = filter, tip = "A", nlast =
 
 poblacion[,c("Nombre", "Anyo", "Valor")]
 ```
+
+## Limitaciones servicio web API JSON
+Cuando se realizan consultas de datos de tablas, existen restricciones de volumen
+en el número de datos que devuelve la API. Por ejemplo, cuando consultamos todos
+los datos de la siguiente tabla aparece el mensaje: 
+"No puede mostrarse por restricciones de volumen".
+
+```{r volumen1, exercise = TRUE}
+t <- get_data_table(idTable = 56938, nlast = 1)
+```
+En este caso, tendremos que realizar varias consultas a la tabla utilizando
+el filtro de datos. En primer lugar vamos a ver que dimensiones contiene la tabla.
+
+```{r volumen2, exercise = TRUE}
+# Obtenemos los id de los tabla grupos (dimensiones)
+grupos <- get_metadata_table_groups(idTable = 56938)
+grupos
+```
+
+Ahora, por ejemplo, vamos a ver los valores del grupo nacionalidad.
+
+```{r volumen3, exercise = TRUE}
+# Obtenemos los id de las variables y valores del tablagrupo de nacionalidad
+nacionalidad <- get_metadata_table_values(idTable = 56938, idGroup = 113349)
+nacionalidad
+```
+
+Podemos utilizar la nacionalidad para dividir la consulta inicial y realizar
+en su lugar 14 consultas diferentes, una por cada valor de nacionalidad.
+
+```{r volumen4, exercise = TRUE}
+# Obtenemos los id de los tabla grupos (cajas)
+grupos <- get_metadata_table_groups(idTable = 56938)
+
+# Obtenemos los id de las variables y valores del tablagrupo de nacionalidad
+nacionalidad <- get_metadata_table_values(idTable = 56938, idGroup = 113349)
+
+datos <- NULL
+for(i in 1:nrow(nacionalidad[1:2,])){
+  filtro <- list()
+  filtro[[as.character(nacionalidad$Fk_Variable[i])]] <- nacionalidad$Id[i]
+  
+  # Consultamos la tabla para el filtro de nacionalidad
+  # el unnest de la columna Data lo dejamos para el final porque UE28 no tiene datos
+  tmp <- get_data_table(idTable = 56938, nlast = 1, filter = filtro, validate = FALSE)
+
+  # Vamos concatenando las diferentes consultas
+  datos <- rbind(datos, tmp)
+  
+  cat(sprintf("- Consulta %s/%s. Nacionalidad: %s (%s filas | %s filas totales)\n", i, nrow(nacionalidad), nacionalidad$Nombre[i], nrow(tmp), nrow(datos)))
+}
+```
+
