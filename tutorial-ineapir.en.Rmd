@@ -20,11 +20,11 @@ To get data from a table it is necessary to know its identification code (see [H
 Once the code of the table is known, we can use the function [get_data_table()](https://es-ine.github.io/ineapir/reference/get_data_table.html) to get the data.
 
 ### Obtaining all the data from a table
-To get all the data of a table it is necessary to set the `idTable` argument. For instance, for the table [National indices: overall and by ECOICOP group](https://www.ine.es/jaxiT3/Tabla.htm?t=50902&L=1) (Id 50902):
+To get all the data of a table it is necessary to set the `idTable` argument. For instance, for the table [National indices: overall and by ECOICOP group](https://www.ine.es/jaxiT3/Tabla.htm?t=76125&L=1) (Id 76125):
 
 
 ```{r tabla1, exercise=TRUE, exercise.eval=FALSE}
-tabla <- get_data_table(idTable = 50902, tip = "A", lang = "EN")
+tabla <- get_data_table(idTable = 76125, tip = "A", lang = "EN")
 head(tabla[,c("Nombre","Data")])
 ```
 
@@ -32,20 +32,20 @@ head(tabla[,c("Nombre","Data")])
 To get the last n data from a table it is necessary to set the `nlast` argument as well. To obtain the last 5 periods we use `nlast = 5`:
 
 ```{r tabla2, exercise=TRUE}
-tabla <- get_data_table(idTable = 50902, tip = "A", nlast = 5, lang = "EN")
+tabla <- get_data_table(idTable = 76125, tip = "A", nlast = 5, lang = "EN")
 head(tabla[,c("Nombre","Data")])
 ```
 
 The Data column contains a data frame for each row. These data frames contain the values of the different periods of each time series
 ```{r tabla3, exercise=TRUE}
-tabla <- get_data_table(idTable = 50902, tip = "A", nlast = 5, lang = "EN")
+tabla <- get_data_table(idTable = 76125, tip = "A", nlast = 5, lang = "EN")
 tabla$Data[[1]]
 ```
 
 
 We can concatenate all data frames into one using `unnest = TRUE`
 ```{r tabla4, exercise=TRUE}
-tabla <- get_data_table(idTable = 50902, tip = "A", nlast = 5, unnest = TRUE, lang = "EN")
+tabla <- get_data_table(idTable = 76125, tip = "A", nlast = 5, unnest = TRUE, lang = "EN")
 head(tabla[,c("Nombre","T3_Periodo","Anyo","Valor")], n = 10)
 ```
 
@@ -63,9 +63,9 @@ filter <- list("3" = "74" ,     # variable id = 3, value id = 74
                )
 
 # Request data for a particular date
-tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", validate = FALSE,
-                      dateStart = "2025/01/01", dateEnd = "2025/01/01")
+                      dateStart = "2026/01/01", dateEnd = "2026/01/01")
 tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
 ```
 
@@ -79,9 +79,9 @@ filter <- list("3" = "74" ,     # variable id = 3, value id = 74
                )
 
 # Request data for a range date
-tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", validate = FALSE,
-                      dateStart = "2024/01/01", dateEnd = "2024/12/01")
+                      dateStart = "2025/01/01", dateEnd = "2025/12/01")
 tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
 ```
 
@@ -95,9 +95,9 @@ filter <- list("3" = "74" ,     # variable id = 3, value id = 74
                )
 
 # Request data for a open range date
-tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", validate = FALSE,
-                      dateStart = "2025/01/01")
+                      dateStart = "2026/01/01")
 tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
 ```
 
@@ -111,10 +111,10 @@ filter <- list("3" = "74" ,     # variable id = 3, value id = 74
                )
 
 # Request data for multiple dates
-tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", validate = FALSE,
-                      dateStart = c("2023/01/01", "2024/01/01", "2025/01/01"), 
-                      dateEnd = c("2023/01/01", "2024/01/01", "2025/01/01"))
+                      dateStart = c("2024/01/01", "2025/01/01", "2026/01/01"), 
+                      dateEnd = c("2024/01/01", "2025/01/01", "2026/01/01"))
 tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
 ```
 
@@ -130,10 +130,10 @@ filter <- list("3" = "74" ,     # variable id = 3, value id = 74
                )
 
 # Request data for multiple range dates
-tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", validate = FALSE,
-                      dateStart = c("2023/01/01", "2024/01/01", "2025/01/01"),
-                      dateEnd = c("2023/03/01", "2024/03/01", "2025/03/01"))
+                      dateStart = c("2024/01/01", "2025/01/01", "2026/01/01"),
+                      dateEnd = c("2024/03/01", "2025/03/01", "2026/03/01"))
 tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
 ```
 
@@ -148,10 +148,10 @@ filter <- list("3" = "74" ,     # variable id = 3, value id = 74
                )
 
 # Request data for multiple range dates and final open range
-tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", validate = FALSE,
-                      dateStart = c("2023/01/01", "2024/01/01", "2025/01/01"), 
-                      dateEnd = c("2023/03/01", "2024/03/01"))
+                      dateStart = c("2024/01/01", "2025/01/01", "2026/01/01"), 
+                      dateEnd = c("2024/03/01", "2025/03/01"))
 tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
 ```
 
@@ -161,10 +161,10 @@ When we request data from tables there is the possibility of filtering data on t
 #### **Tempus 3 tables**
 In order to filter, it is necessary to know the numerical identifier codes (Id) of the variables and the values by which we want to filter. Therefore, we must do the following:
 
-1. The first step is to obtain the metadata information from a table using the function [get_metadata_table_varval](https://es-ine.github.io/ineapir/reference/get_metadata_table_varval.html). For instance, the table [Indices by Autonomous Community: overall and by ECOICOP group](https://www.ine.es/jaxiT3/Tabla.htm?t=50913&L=1) (Id = 50913).
+1. The first step is to obtain the metadata information from a table using the function [get_metadata_table_varval](https://es-ine.github.io/ineapir/reference/get_metadata_table_varval.html). For instance, the table [Indices by Autonomous Community: overall and by ECOICOP group](https://www.ine.es/jaxiT3/Tabla.htm?t=76136&L=1) (Id = 76136).
 
 ```{r tabla5, exercise=TRUE}
-metadata <- get_metadata_table_varval(idTable = 50913, lang = "EN")
+metadata <- get_metadata_table_varval(idTable = 76136, lang = "EN")
 metadata[,c("Nombre","Id","Fk_Variable")]
 ```
 
@@ -177,7 +177,7 @@ filter <- list("3" = "74" ,      # variable id = 3, value id = 74
                )
 
 # Request data using the filter 
-ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 2, validate = FALSE, lang = "EN")
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
@@ -191,7 +191,7 @@ filter <- list("3" = "74" ,      # variable id = 3, value id = 74
                )
 
 # Request data using the filter
-ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 2, validate = FALSE, lang = "EN")
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
@@ -205,7 +205,7 @@ filter <- list("3" = "74" ,      # variable id = 3, value id = 74
                )
 
 # Request data using the filter
-ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 2, validate = FALSE, lang = "EN")
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
@@ -218,7 +218,7 @@ filter <- list("3" = "74" ,       # variable id = 3, valor id = 74
                )
 
 # Request data using the filter
-ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 2, validate = FALSE)
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
@@ -360,7 +360,7 @@ Instead of using numeric codes, it is possible to use certain shortcut names whe
 |values          | -    | Values wrapper |
 
 #### Example 1
-We are going to filter the table [National indices: overall and by ECOICOP group](https://www.ine.es/jaxiT3/Tabla.htm?t=50902&L=1) (Id 50902):
+We are going to filter the table [National indices: overall and by ECOICOP group](https://www.ine.es/jaxiT3/Tabla.htm?t=76125&L=1) (Id 76125):
 
 
 ```{r tabla13, exercise=TRUE}
@@ -370,7 +370,7 @@ filter <- list(datatype = "annual" , # variable id = 3
                )
 
 # Request data using the filter
-ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 5, validate = FALSE, lang = "EN")
 
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
@@ -383,7 +383,7 @@ Besides, we can also use the values wrapper.
 filter <- list(values = c("annual" , "overall index"))
 
 #  Request data using the filter
-ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 5, validate = FALSE, lang = "EN")
 
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
@@ -397,7 +397,7 @@ filter <- list(datatype = "annual" , # variable id = 3
                )
 
 # Request data using the filter
-ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 5, validate = FALSE, lang = "EN")
 
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
@@ -459,7 +459,7 @@ filter <- list(values = c("gross domestic product", "calendar adjusted data", "a
 
 
 # Request data using the filter
-pib <- get_data_table(idTable = 30679, filter = filter, unnest = TRUE,
+pib <- get_data_table(idTable = 67822, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 5, validate = FALSE, lang = "EN")
 
 pib[,c("Nombre","T3_Periodo","Anyo","Valor")]
@@ -472,10 +472,10 @@ To get data from a time series it is necessary to know its identification code (
 Once the code of the time series is known, we can use the function [get_data_series()](https://es-ine.github.io/ineapir/reference/get_data_series.html) to get the data.
 
 #### **Obtaining the last period of a time series**
-To get the last data of a series it is necessary to set the `codSeries` argument. For example, the time series [IPC251856](https://www.ine.es/consul/serie.do?s=IPC251856)
+To get the last data of a series it is necessary to set the `codSeries` argument. For example, the time series [IPC290750](https://www.ine.es/consul/serie.do?s=IPC290750)
 
 ```{r series1, exercise=TRUE}
-series <- get_data_series(codSeries = "IPC251856", tip = "A", lang = "EN")
+series <- get_data_series(codSeries = "IPC290750", tip = "A", lang = "EN")
 series$Data
 ```
 
@@ -483,7 +483,7 @@ series$Data
 To get the last n data from a time series it is necessary to set the `nlast` argument as well. To obtain the last 5 periods we use `nlast = 5`:
 
 ```{r series2, exercise=TRUE}
-series <- get_data_series(codSeries = "IPC251856", tip = "A", nlast = 5, unnest = TRUE, lang = "EN")
+series <- get_data_series(codSeries = "IPC290750", tip = "A", nlast = 5, unnest = TRUE, lang = "EN")
 series
 ```
 
@@ -491,7 +491,7 @@ series
 It is necessary to set the `dateStart` and `dateEnd` arguments. The date must have and specific format (yyyy/mm/dd). 
 
 ```{r series3, exercise=TRUE}
-series <- get_data_series(codSeries = "IPC251856", tip = "A", unnest = TRUE, dateStart = "2023/01/01", 
+series <- get_data_series(codSeries = "IPC290750", tip = "A", unnest = TRUE, dateStart = "2023/01/01", 
                           dateEnd = "2023/04/01", lang = "EN")
 series
 ```
@@ -500,7 +500,7 @@ series
 If `dateEnd` is not specified we obtain all the data from `dateStart`.
 
 ```{r series4, exercise=TRUE}
-series <- get_data_series(codSeries = "IPC251856", tip = "A", unnest = TRUE, dateStart = "2024/01/01", lang = "EN")
+series <- get_data_series(codSeries = "IPC290750", tip = "A", unnest = TRUE, dateStart = "2024/01/01", lang = "EN")
 series
 ```
 
@@ -666,24 +666,24 @@ head(tables)
 
 A table is defined by different groups or selection combo boxes and each of them by the values that one or several variables take. The process to obtain all the variables and values present in a table can be done in two steps:
 
-1.  The first step is to query the groups that define the table using the function [get_metadata_table_groups()](https://es-ine.github.io/ineapir/reference/get_metadata_table_groups.html). For instance, the table "[Indices by Autonomous Community: overall and by ECOICOP group](https://www.ine.es/jaxiT3/Tabla.htm?t=50913&L=1)" (Id 50913)
+1.  The first step is to query the groups that define the table using the function [get_metadata_table_groups()](https://es-ine.github.io/ineapir/reference/get_metadata_table_groups.html). For instance, the table "[Indices by Autonomous Community: overall and by ECOICOP group](https://www.ine.es/jaxiT3/Tabla.htm?t=76136&L=1)" (Id 76136)
 
 ```{r infotab2, exercise=TRUE}
-groups <- get_metadata_table_groups(idTable = 50913, lang = "EN")
+groups <- get_metadata_table_groups(idTable = 76136, lang = "EN")
 groups
 ```    
 
-2.  The second step is to query the values for an specific group using the function [get_metadata_table_values()](https://es-ine.github.io/ineapir/reference/get_metadata_table_values.html). For instance, values of the group "Comunidades y Ciudades Autónomas" (Id=110924) of the table "[Indices by Autonomous Community: overall and by ECOICOP group](https://www.ine.es/jaxiT3/Tabla.htm?t=50913&L=1)" (Id=50913)
+2.  The second step is to query the values for an specific group using the function [get_metadata_table_values()](https://es-ine.github.io/ineapir/reference/get_metadata_table_values.html). For instance, values of the group "Comunidades y Ciudades Autónomas" (Id=155612) of the table "[Indices by Autonomous Community: overall and by ECOICOP group](https://www.ine.es/jaxiT3/Tabla.htm?t=76136&L=1)" (Id=76136)
 
 ```{r infotab3, exercise=TRUE}
-values <- get_metadata_table_values(idTable = 50913, idGroup = 110924)
+values <- get_metadata_table_values(idTable = 76136, idGroup = 155612)
 values
 ```
 
 Alternatively, we can use the [get_metadata_table_varval()](https://es-ine.github.io/ineapir/reference/get_metadata_table_varval.html) function to get the variables and values present in a table.
 
 ```{r infotab4, exercise=TRUE}
-values <- get_metadata_table_varval(idTable = 50913)
+values <- get_metadata_table_varval(idTable = 76136)
 values
 ```
 
@@ -691,10 +691,10 @@ values
 The data is only associated with the series object. To obtain information about a particular series we can use the function [get_metadata_series()](https://es-ine.github.io/ineapir/reference/get_metadata_series.html). To get all the series that define a table we can use the function [get_metadata_series_table()](https://es-ine.github.io/ineapir/reference/get_metadata_series_table.html). To get all the series of an statistical operation we can use the function [get_metadata_series_operation()](https://es-ine.github.io/ineapir/reference/get_metadata_series_operation.html).
 
 #### **Obtaining a time series**
-To obtain information about a particular time series it is necessary to set the `codSeries` argument, which is the identification code of the series. For example, for the time series of code [IPC251852](https://www.ine.es/consul/serie.do?s=IPC251852).
+To obtain information about a particular time series it is necessary to set the `codSeries` argument, which is the identification code of the series. For example, for the time series of code [IPC290750](https://www.ine.es/consul/serie.do?s=IPC290750).
 
 ```{r infoserie1, exercise=TRUE}
-series <- get_metadata_series(codSeries = "IPC251852", lang = "EN")
+series <- get_metadata_series(codSeries = "IPC290750", lang = "EN")
 as.data.frame(series)
 ```
 
@@ -702,7 +702,7 @@ as.data.frame(series)
 To get the values and variables that define a series it is necessary to pass the `codSeries`argument.
 
 ```{r infoserie2, exercise=TRUE}
-values <- get_metadata_series_values(codSeries = "IPC251852", lang = "EN")
+values <- get_metadata_series_values(codSeries = "IPC290750", lang = "EN")
 values
 ```
 
@@ -710,7 +710,7 @@ values
 To get all the series that define a table it is necessary to set the `idTable` argument, which is the identification code of a table.
 
 ```{r infoserie3, exercise=TRUE}
-series <- get_metadata_series_table(idTable = 50913, lang = "EN")
+series <- get_metadata_series_table(idTable = 76136, lang = "EN")
 head(series)
 ```
 
@@ -722,7 +722,7 @@ filter <- list("3" = "74" ,     # variable id = 3, value id = 74
                )
 
 # Request data using the filter
-series <- get_metadata_series_table(idTable = 50913, lang = "EN", filter = filter)
+series <- get_metadata_series_table(idTable = 76136, lang = "EN", filter = filter)
 series
 ```
 
@@ -795,7 +795,7 @@ filter <- list("3" = "74" ,      # variable id = 3, valor id = 74
                )
 
 # Con verbose = TRUE and validate = TRUE
-ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 2, verbose = TRUE, validate = TRUE, lang = "EN")
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
@@ -807,7 +807,7 @@ filter <- list("3" = "74" ,      # variable id = 3, valor id = 74
                )
 
 # Con verbose = TRUE and validate = FALSE
-ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 2, verbose = TRUE, validate = FALSE, lang = "EN")
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
@@ -830,7 +830,7 @@ When we request data from tables or series using the functions `get_data_table()
 filter <- list(values = c("annual" , "monthly", "overall index"))
 
 # Obtenemos los datos con unnest = FALSE
-ipc <- get_data_table(idTable = 50902, filter = filter, tip = "A", nlast = 3, lang = "EN")
+ipc <- get_data_table(idTable = 76125, filter = filter, tip = "A", nlast = 3, lang = "EN")
 
 # Tenemos dos filas (series)
  ipc[,c("Nombre", "Data")]
@@ -846,7 +846,7 @@ If we want to get only one data frame for all data values, we can pass the argum
 filter <- list(values = c("annual" , "monthly", "overall index"))
 
 # Obtenemos los datos con unnest = FALSE
-ipc <- get_data_table(idTable = 50902, filter = filter, tip = "A",
+ipc <- get_data_table(idTable = 76125, filter = filter, tip = "A",
                       nlast = 3, unnest = TRUE, lang = "EN")
 
 # Único dataframe con 6 filas

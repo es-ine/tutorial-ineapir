@@ -123,12 +123,12 @@ para obtener los datos asociados.</p>
 class="section level3">
 <h3>Obtener todos los datos de la tabla</h3>
 <p>Por ejemplo, para la tabla <a
-href="https://www.ine.es/jaxiT3/Tabla.htm?t=50902">Índices nacionales:
-general y de grupos ECOICOP</a> (Id 50902):</p>
+href="https://www.ine.es/jaxiT3/Tabla.htm?t=76125">Índices nacionales:
+general y de grupos ECOICOP</a> (Id 76125):</p>
 <div class="tutorial-exercise" data-label="tabla1" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>tabla &lt;- get_data_table(idTable = 50902, tip = &quot;A&quot;)
+<pre class="text"><code>tabla &lt;- get_data_table(idTable = 76125, tip = &quot;A&quot;)
 head(tabla[,c(&quot;Nombre&quot;,&quot;Data&quot;)])</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -140,7 +140,7 @@ para obtener los últimos 5 datos:</p>
 <div class="tutorial-exercise" data-label="tabla2" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>tabla &lt;- get_data_table(idTable = 50902, tip = &quot;A&quot;, nlast = 5)
+<pre class="text"><code>tabla &lt;- get_data_table(idTable = 76125, tip = &quot;A&quot;, nlast = 5)
 head(tabla[,c(&quot;Nombre&quot;,&quot;Data&quot;)])</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -149,7 +149,7 @@ periodos
 <div class="tutorial-exercise" data-label="tabla3" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>tabla &lt;- get_data_table(idTable = 50902, tip = &quot;A&quot;, nlast = 5)
+<pre class="text"><code>tabla &lt;- get_data_table(idTable = 76125, tip = &quot;A&quot;, nlast = 5)
 tabla$Data[[1]]</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -158,7 +158,7 @@ Podemos unir todos los dataframe en uno sólo utilizando el parámetro
 <div class="tutorial-exercise" data-label="tabla4" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>tabla &lt;- get_data_table(idTable = 50902, tip = &quot;A&quot;, nlast = 5, unnest = TRUE)
+<pre class="text"><code>tabla &lt;- get_data_table(idTable = 76125, tip = &quot;A&quot;, nlast = 5, unnest = TRUE)
 head(tabla[,c(&quot;Nombre&quot;,&quot;T3_Periodo&quot;,&quot;Anyo&quot;,&quot;Valor&quot;)], n = 10)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -181,9 +181,9 @@ filter &lt;- list(&quot;3&quot; = &quot;74&quot; ,     # variable id = 3, value 
                )
 
 # Filtrar datos para una fecha en particular
-tabla &lt;- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla &lt;- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, validate = FALSE,
-                      dateStart = &quot;2025/01/01&quot;, dateEnd = &quot;2025/01/01&quot;)
+                      dateStart = &quot;2026/01/01&quot;, dateEnd = &quot;2026/01/01&quot;)
 tabla[,c(&quot;Nombre&quot;, &quot;T3_Periodo&quot;, &quot;Anyo&quot;, &quot;Valor&quot;)]</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -201,9 +201,9 @@ filter &lt;- list(&quot;3&quot; = &quot;74&quot; ,     # variable id = 3, value 
                )
 
 # Filtrar datos para un rango de fechas
-tabla &lt;- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla &lt;- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, validate = FALSE,
-                      dateStart = &quot;2024/01/01&quot;, dateEnd = &quot;2024/12/01&quot;)
+                      dateStart = &quot;2025/01/01&quot;, dateEnd = &quot;2025/12/01&quot;)
 tabla[,c(&quot;Nombre&quot;, &quot;T3_Periodo&quot;, &quot;Anyo&quot;, &quot;Valor&quot;)]</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -221,9 +221,9 @@ filter &lt;- list(&quot;3&quot; = &quot;74&quot; ,     # variable id = 3, value 
                )
 
 # Filtrar datos para un rango de fechas abierto
-tabla &lt;- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla &lt;- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, validate = FALSE,
-                      dateStart = &quot;2025/01/01&quot;)
+                      dateStart = &quot;2026/01/01&quot;)
 tabla[,c(&quot;Nombre&quot;, &quot;T3_Periodo&quot;, &quot;Anyo&quot;, &quot;Valor&quot;)]</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -242,10 +242,10 @@ filter &lt;- list(&quot;3&quot; = &quot;74&quot; ,     # variable id = 3, value 
                )
 
 # Filtrar datos para varias fechas
-tabla &lt;- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla &lt;- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, validate = FALSE,
-                      dateStart = c(&quot;2023/01/01&quot;, &quot;2024/01/01&quot;, &quot;2025/01/01&quot;), 
-                      dateEnd = c(&quot;2023/01/01&quot;, &quot;2024/01/01&quot;, &quot;2025/01/01&quot;))
+                      dateStart = c(&quot;2024/01/01&quot;, &quot;2025/01/01&quot;, &quot;2026/01/01&quot;), 
+                      dateEnd = c(&quot;2024/01/01&quot;, &quot;2025/01/01&quot;, &quot;2026/01/01&quot;))
 tabla[,c(&quot;Nombre&quot;, &quot;T3_Periodo&quot;, &quot;Anyo&quot;, &quot;Valor&quot;)]</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -266,10 +266,10 @@ filter &lt;- list(&quot;3&quot; = &quot;74&quot; ,     # variable id = 3, value 
                )
 
 # Filtrar datos para un rango de fechas múltiple
-tabla &lt;- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla &lt;- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, validate = FALSE,
-                      dateStart = c(&quot;2023/01/01&quot;, &quot;2024/01/01&quot;, &quot;2025/01/01&quot;),
-                      dateEnd = c(&quot;2023/03/01&quot;, &quot;2024/03/01&quot;, &quot;2025/03/01&quot;))
+                      dateStart = c(&quot;2024/01/01&quot;, &quot;2025/01/01&quot;, &quot;2026/01/01&quot;),
+                      dateEnd = c(&quot;2024/03/01&quot;, &quot;2025/03/01&quot;, &quot;2026/03/01&quot;))
 tabla[,c(&quot;Nombre&quot;, &quot;T3_Periodo&quot;, &quot;Anyo&quot;, &quot;Valor&quot;)]</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -290,10 +290,10 @@ filter &lt;- list(&quot;3&quot; = &quot;74&quot; ,     # variable id = 3, value 
                )
 
 # Filtrar datos para un rango de fechas múltiple y rango abierto final
-tabla &lt;- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla &lt;- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, validate = FALSE,
-                      dateStart = c(&quot;2023/01/01&quot;, &quot;2024/01/01&quot;, &quot;2025/01/01&quot;), 
-                      dateEnd = c(&quot;2023/03/01&quot;, &quot;2024/03/01&quot;))
+                      dateStart = c(&quot;2024/01/01&quot;, &quot;2025/01/01&quot;, &quot;2026/01/01&quot;), 
+                      dateEnd = c(&quot;2024/03/01&quot;, &quot;2025/03/01&quot;))
 tabla[,c(&quot;Nombre&quot;, &quot;T3_Periodo&quot;, &quot;Anyo&quot;, &quot;Valor&quot;)]</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -315,14 +315,14 @@ filtrar. Por lo tanto, debemos hacer lo siguiente:</p>
 <ol style="list-style-type: decimal">
 <li>Obtener información de las variables y valores de la tabla de
 interés, por ejemplo <a
-href="https://www.ine.es/jaxiT3/Tabla.htm?t=50913">Índices por
+href="https://www.ine.es/jaxiT3/Tabla.htm?t=76136">Índices por
 comunidades autónomas: general y de grupos ECOICOP</a> (Id =
-50913).</li>
+76136).</li>
 </ol>
 <div class="tutorial-exercise" data-label="tabla5" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>metadata &lt;- get_metadata_table_varval(idTable = 50913)
+<pre class="text"><code>metadata &lt;- get_metadata_table_varval(idTable = 76136)
 metadata[,c(&quot;Nombre&quot;,&quot;Id&quot;,&quot;Fk_Variable&quot;)]</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -340,7 +340,7 @@ data-pipe="|&gt;">
                )
 
 # Obtenemos los datos filtrados 
-ipc &lt;- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc &lt;- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, nlast = 2, validate = FALSE)
 ipc[,c(&quot;Nombre&quot;,&quot;T3_Periodo&quot;,&quot;Anyo&quot;,&quot;Valor&quot;)]</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -357,7 +357,7 @@ data-pipe="|&gt;">
                )
 
 # Obtenemos los datos filtrados 
-ipc &lt;- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc &lt;- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, nlast = 2, validate = FALSE)
 ipc[,c(&quot;Nombre&quot;,&quot;T3_Periodo&quot;,&quot;Anyo&quot;,&quot;Valor&quot;)]</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -374,7 +374,7 @@ data-pipe="|&gt;">
                )
 
 # Obtenemos los datos filtrados 
-ipc &lt;- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc &lt;- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, nlast = 2, validate = FALSE)
 ipc[,c(&quot;Nombre&quot;,&quot;T3_Periodo&quot;,&quot;Anyo&quot;,&quot;Valor&quot;)]</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -389,7 +389,7 @@ data-pipe="|&gt;">
                )
 
 # Obtenemos los datos filtrados 
-ipc &lt;- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc &lt;- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, nlast = 2, validate = FALSE)
 ipc[,c(&quot;Nombre&quot;,&quot;T3_Periodo&quot;,&quot;Anyo&quot;,&quot;Valor&quot;)]</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -702,8 +702,8 @@ particular:</p>
 <div id="section-ejemplo-1" class="section level4">
 <h4>Ejemplo 1</h4>
 <p>Por ejemplo, para la tabla <a
-href="https://www.ine.es/jaxiT3/Tabla.htm?t=50902">Índices nacionales:
-general y de grupos ECOICOP</a> (Id 50902)</p>
+href="https://www.ine.es/jaxiT3/Tabla.htm?t=76125">Índices nacionales:
+general y de grupos ECOICOP</a> (Id 76125)</p>
 <div class="tutorial-exercise" data-label="tabla13" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
@@ -713,7 +713,7 @@ filter &lt;- list(tipodato = &quot;variación anual&quot; , # variable id = 3
                )
 
 # Obtenemos los datos de la tabla
-ipc &lt;- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+ipc &lt;- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, nlast = 5, validate = FALSE)
 
 ipc[,c(&quot;Nombre&quot;,&quot;T3_Periodo&quot;,&quot;Anyo&quot;,&quot;Valor&quot;)]</code></pre>
@@ -729,7 +729,7 @@ data-pipe="|&gt;">
 filter &lt;- list(values = c(&quot;variación anual&quot; , &quot;índice general&quot;))
 
 # Obtenemos los datos de la tabla
-ipc &lt;- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+ipc &lt;- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, nlast = 5, validate = FALSE)
 
 ipc[,c(&quot;Nombre&quot;,&quot;T3_Periodo&quot;,&quot;Anyo&quot;,&quot;Valor&quot;)]</code></pre>
@@ -745,7 +745,7 @@ filter &lt;- list(tipodato = &quot;variación anual&quot; , # variable id = 3
                )
 
 # Obtenemos los datos de la tabla
-ipc &lt;- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+ipc &lt;- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, nlast = 5, validate = FALSE)
 
 ipc[,c(&quot;Nombre&quot;,&quot;T3_Periodo&quot;,&quot;Anyo&quot;,&quot;Valor&quot;)]</code></pre>
@@ -810,8 +810,8 @@ poblacion[,c(&quot;Nombre&quot;,&quot;T3_Periodo&quot;,&quot;Anyo&quot;,&quot;Va
 <div id="section-ejemplo-3" class="section level4">
 <h4>Ejemplo 3</h4>
 <p>Por ejemplo, para la tabla <a
-href="https://www.ine.es/jaxiT3/Tabla.htm?t=30679">PIB pm Oferta
-(Indices de volumen encadenado)</a> (Id 30679). Podemos utilizar el
+href="https://www.ine.es/jaxiT3/Tabla.htm?t=67822">PIB pm Oferta
+(Indices de volumen encadenado)</a> (Id 67822). Podemos utilizar el
 contenedor <em>values</em> aunque no existan etiquetas predefinidas que
 se correspondan con las variables de la tabla.</p>
 <div class="tutorial-exercise" data-label="tabla15" data-completion="1"
@@ -822,7 +822,7 @@ filter &lt;- list(values = c(&quot;producto interior&quot;, &quot;datos ajustado
 
 
 # Obtenemos los datos de la tabla
-pib &lt;- get_data_table(idTable = 30679, filter = filter, unnest = TRUE,
+pib &lt;- get_data_table(idTable = 67822, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, nlast = 5, validate = FALSE)
 
 pib[,c(&quot;Nombre&quot;,&quot;T3_Periodo&quot;,&quot;Anyo&quot;,&quot;Valor&quot;)]</code></pre>
@@ -846,11 +846,11 @@ para obtener los datos de interés.</p>
 class="section level4">
 <h4><strong>Obtener el último periodo de una serie</strong></h4>
 <p>Por ejemplo, para la serie con código <a
-href="https://www.ine.es/consul/serie.do?s=IPC251856">IPC251856</a></p>
+href="https://www.ine.es/consul/serie.do?s=IPC290750">IPC290750</a></p>
 <div class="tutorial-exercise" data-label="series1" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>series &lt;- get_data_series(codSeries = &quot;IPC251856&quot;, tip = &quot;A&quot;)
+<pre class="text"><code>series &lt;- get_data_series(codSeries = &quot;IPC290750&quot;, tip = &quot;A&quot;)
 series$Data</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -861,7 +861,7 @@ class="section level4">
 <div class="tutorial-exercise" data-label="series2" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>series &lt;- get_data_series(codSeries = &quot;IPC251856&quot;, tip = &quot;A&quot;, nlast = 5, unnest = TRUE)
+<pre class="text"><code>series &lt;- get_data_series(codSeries = &quot;IPC290750&quot;, tip = &quot;A&quot;, nlast = 5, unnest = TRUE)
 series</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -873,7 +873,7 @@ class="section level4">
 <div class="tutorial-exercise" data-label="series3" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>series &lt;- get_data_series(codSeries = &quot;IPC251856&quot;, tip = &quot;A&quot;, unnest = TRUE, dateStart = &quot;2023/01/01&quot;, 
+<pre class="text"><code>series &lt;- get_data_series(codSeries = &quot;IPC290750&quot;, tip = &quot;A&quot;, unnest = TRUE, dateStart = &quot;2023/01/01&quot;, 
                           dateEnd = &quot;2023/04/01&quot;)
 series</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -886,7 +886,7 @@ class="section level4">
 <div class="tutorial-exercise" data-label="series4" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>series &lt;- get_data_series(codSeries = &quot;IPC251856&quot;, tip = &quot;A&quot;, unnest = TRUE, dateStart = &quot;2024/01/01&quot;)
+<pre class="text"><code>series &lt;- get_data_series(codSeries = &quot;IPC290750&quot;, tip = &quot;A&quot;, unnest = TRUE, dateStart = &quot;2024/01/01&quot;)
 series</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -1141,26 +1141,26 @@ puede realizar en dos partes:</p>
 <ol style="list-style-type: decimal">
 <li>Primera parte de la consulta: Grupos o combos de selección que
 definen a la tabla “<a
-href="https://www.ine.es/jaxiT3/Tabla.htm?t=50913">Índices por
-comunidades autónomas: general y de grupos ECOICOP</a>” (Id 50913)</li>
+href="https://www.ine.es/jaxiT3/Tabla.htm?t=76136">Índices por
+comunidades autónomas: general y de grupos ECOICOP</a>” (Id 76136)</li>
 </ol>
 <div class="tutorial-exercise" data-label="infotab2" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>groups &lt;- get_metadata_table_groups(idTable = 50913)
+<pre class="text"><code>groups &lt;- get_metadata_table_groups(idTable = 76136)
 groups</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li>Segunda parte de la consulta: Valores del grupo “Comunidades y
-Ciudades Autónomas” (Id=110924) perteneciente a la tabla “<a
-href="https://www.ine.es/jaxiT3/Tabla.htm?t=50913">Índices por
-comunidades autónomas: general y de grupos ECOICOP</a>” (Id=50913)</li>
+Ciudades Autónomas” (Id=155612) perteneciente a la tabla “<a
+href="https://www.ine.es/jaxiT3/Tabla.htm?t=76136">Índices por
+comunidades autónomas: general y de grupos ECOICOP</a>” (Id=76136)</li>
 </ol>
 <div class="tutorial-exercise" data-label="infotab3" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>values &lt;- get_metadata_table_values(idTable = 50913, idGroup = 110924)
+<pre class="text"><code>values &lt;- get_metadata_table_values(idTable = 76136, idGroup = 155612)
 values</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -1170,7 +1170,7 @@ en un sólo paso.</p>
 <div class="tutorial-exercise" data-label="infotab4" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>values &lt;- get_metadata_table_varval(idTable = 50913)
+<pre class="text"><code>values &lt;- get_metadata_table_varval(idTable = 76136)
 values</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -1193,12 +1193,12 @@ class="section level4">
 <h4><strong>Obtener información de una serie</strong></h4>
 <p>Por ejemplo, de la serie que recoge los datos del índice general del
 IPC (<a
-href="https://www.ine.es/consul/serie.do?s=IPC251852">IPC251852</a>) que
-recoge la variación mensual del Índice de precios de consumo</p>
+href="https://www.ine.es/consul/serie.do?s=IPC290750">IPC290750</a>) que
+recoge la variación anual del Índice de precios de consumo</p>
 <div class="tutorial-exercise" data-label="infoserie1"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
-<pre class="text"><code>series &lt;- get_metadata_series(codSeries = &quot;IPC251852&quot;)
+<pre class="text"><code>series &lt;- get_metadata_series(codSeries = &quot;IPC290750&quot;)
 as.data.frame(series)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -1209,11 +1209,11 @@ class="section level4">
 serie</strong></h4>
 <p>Por ejemplo, de la serie que recoge los datos del índice general del
 IPC (<a
-href="https://www.ine.es/consul/serie.do?s=IPC251852">IPC251852</a>)</p>
+href="https://www.ine.es/consul/serie.do?s=IPC290750">IPC290750</a>)</p>
 <div class="tutorial-exercise" data-label="infoserie2"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
-<pre class="text"><code>values &lt;- get_metadata_series_values(codSeries = &quot;IPC251852&quot;)
+<pre class="text"><code>values &lt;- get_metadata_series_values(codSeries = &quot;IPC290750&quot;)
 values</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -1222,13 +1222,13 @@ values</code></pre>
 class="section level4">
 <h4><strong>Obtener el listado de series de una tabla</strong></h4>
 <p>Por ejemplo, las series de la tabla “<a
-href="https://www.ine.es/jaxiT3/Datos.htm?t=50913">Índices por
+href="https://www.ine.es/jaxiT3/Datos.htm?t=76136">Índices por
 comunidades autónomas: general y de grupos ECOICOP</a>” de la operación
-IPC (Id 50913).</p>
+IPC (Id 76136).</p>
 <div class="tutorial-exercise" data-label="infoserie3"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
-<pre class="text"><code>series &lt;- get_metadata_series_table(idTable = 50913)
+<pre class="text"><code>series &lt;- get_metadata_series_table(idTable = 76136)
 head(series)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -1242,7 +1242,7 @@ data-lines="0" data-pipe="|&gt;">
                )
 
 # Obtenemos los datos filtrados 
-series &lt;- get_metadata_series_table(idTable = 50913, filter = filter)
+series &lt;- get_metadata_series_table(idTable = 76136, filter = filter)
 series</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -1358,7 +1358,7 @@ data-lines="0" data-pipe="|&gt;">
                )
 
 # Con verbose = TRUE and validate = TRUE
-ipc &lt;- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc &lt;- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, nlast = 2, verbose = TRUE, validate = TRUE)
 ipc[,c(&quot;Nombre&quot;,&quot;T3_Periodo&quot;,&quot;Anyo&quot;,&quot;Valor&quot;)]</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -1372,7 +1372,7 @@ data-lines="0" data-pipe="|&gt;">
                )
 
 # Con verbose = TRUE and validate = FALSE
-ipc &lt;- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc &lt;- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = &quot;A&quot;, nlast = 2, verbose = TRUE, validate = FALSE)
 ipc[,c(&quot;Nombre&quot;,&quot;T3_Periodo&quot;,&quot;Anyo&quot;,&quot;Valor&quot;)]</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -1403,7 +1403,7 @@ data-pipe="|&gt;">
 filter &lt;- list(values = c(&quot;variación anual&quot; , &quot;variación mensual&quot;, &quot;índice general&quot;))
 
 # Obtenemos los datos con unnest = FALSE
-ipc &lt;- get_data_table(idTable = 50902, filter = filter, tip = &quot;A&quot;, nlast = 3)
+ipc &lt;- get_data_table(idTable = 76125, filter = filter, tip = &quot;A&quot;, nlast = 3)
 
 # Tenemos dos filas (series)
  ipc[,c(&quot;Nombre&quot;, &quot;Data&quot;)]
@@ -1421,7 +1421,7 @@ data-pipe="|&gt;">
 filter &lt;- list(values = c(&quot;variación anual&quot; , &quot;variación mensual&quot;, &quot;índice general&quot;))
 
 # Obtenemos los datos con unnest = FALSE
-ipc &lt;- get_data_table(idTable = 50902, filter = filter, tip = &quot;A&quot;,
+ipc &lt;- get_data_table(idTable = 76125, filter = filter, tip = &quot;A&quot;,
                       nlast = 3, unnest = TRUE)
 
 # Único dataframe con 6 filas
@@ -1581,7 +1581,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla1", global_setup = st
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla1", code = "tabla <- get_data_table(idTable = 50902, tip = \"A\")\nhead(tabla[,c(\"Nombre\",\"Data\")])", 
+    chunks = list(list(label = "tabla1", code = "tabla <- get_data_table(idTable = 76125, tip = \"A\")\nhead(tabla[,c(\"Nombre\",\"Data\")])", 
         opts = list(label = "\"tabla1\"", exercise = "TRUE", 
             exercise.eval = "FALSE"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = NULL, solution = NULL, tests = NULL, 
@@ -1602,7 +1602,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla1", global_setup = st
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "tabla1", exercise = TRUE, 
-        exercise.eval = FALSE, code = c("tabla <- get_data_table(idTable = 50902, tip = \"A\")", 
+        exercise.eval = FALSE, code = c("tabla <- get_data_table(idTable = 76125, tip = \"A\")", 
         "head(tabla[,c(\"Nombre\",\"Data\")])"), out.width.px = 624, 
         out.height.px = 384, params.src = "tabla1, exercise=TRUE, exercise.eval=FALSE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -1623,7 +1623,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla2", global_setup = st
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla2", code = "tabla <- get_data_table(idTable = 50902, tip = \"A\", nlast = 5)\nhead(tabla[,c(\"Nombre\",\"Data\")])", 
+    chunks = list(list(label = "tabla2", code = "tabla <- get_data_table(idTable = 76125, tip = \"A\", nlast = 5)\nhead(tabla[,c(\"Nombre\",\"Data\")])", 
         opts = list(label = "\"tabla2\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -1643,7 +1643,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla2", global_setup = st
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "tabla2", exercise = TRUE, 
-        code = c("tabla <- get_data_table(idTable = 50902, tip = \"A\", nlast = 5)", 
+        code = c("tabla <- get_data_table(idTable = 76125, tip = \"A\", nlast = 5)", 
         "head(tabla[,c(\"Nombre\",\"Data\")])"), out.width.px = 624, 
         out.height.px = 384, params.src = "tabla2, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -1664,7 +1664,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla3", global_setup = st
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla3", code = "tabla <- get_data_table(idTable = 50902, tip = \"A\", nlast = 5)\ntabla$Data[[1]]", 
+    chunks = list(list(label = "tabla3", code = "tabla <- get_data_table(idTable = 76125, tip = \"A\", nlast = 5)\ntabla$Data[[1]]", 
         opts = list(label = "\"tabla3\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -1684,7 +1684,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla3", global_setup = st
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "tabla3", exercise = TRUE, 
-        code = c("tabla <- get_data_table(idTable = 50902, tip = \"A\", nlast = 5)", 
+        code = c("tabla <- get_data_table(idTable = 76125, tip = \"A\", nlast = 5)", 
         "tabla$Data[[1]]"), out.width.px = 624, out.height.px = 384, 
         params.src = "tabla3, exercise=TRUE", fig.num = 0, exercise.df_print = "paged", 
         exercise.checker = "NULL"), engine = "r", version = "4"), class = c("r", 
@@ -1704,7 +1704,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla4", global_setup = st
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla4", code = "tabla <- get_data_table(idTable = 50902, tip = \"A\", nlast = 5, unnest = TRUE)\nhead(tabla[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")], n = 10)", 
+    chunks = list(list(label = "tabla4", code = "tabla <- get_data_table(idTable = 76125, tip = \"A\", nlast = 5, unnest = TRUE)\nhead(tabla[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")], n = 10)", 
         opts = list(label = "\"tabla4\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -1724,7 +1724,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla4", global_setup = st
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "tabla4", exercise = TRUE, 
-        code = c("tabla <- get_data_table(idTable = 50902, tip = \"A\", nlast = 5, unnest = TRUE)", 
+        code = c("tabla <- get_data_table(idTable = 76125, tip = \"A\", nlast = 5, unnest = TRUE)", 
         "head(tabla[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")], n = 10)"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla4, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -1745,7 +1745,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla4b", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla4b", code = "# filtro por variables y valores\nfilter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74\n               \"762\" = \"304092\" # variable id = 762, value id = 304092\n               )\n\n# Filtrar datos para una fecha en particular\ntabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,\n                      tip = \"A\", validate = FALSE,\n                      dateStart = \"2025/01/01\", dateEnd = \"2025/01/01\")\ntabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]", 
+    chunks = list(list(label = "tabla4b", code = "# filtro por variables y valores\nfilter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74\n               \"762\" = \"304092\" # variable id = 762, value id = 304092\n               )\n\n# Filtrar datos para una fecha en particular\ntabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,\n                      tip = \"A\", validate = FALSE,\n                      dateStart = \"2026/01/01\", dateEnd = \"2026/01/01\")\ntabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]", 
         opts = list(label = "\"tabla4b\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -1768,9 +1768,9 @@ learnr:::store_exercise_cache(structure(list(label = "tabla4b", global_setup = s
         code = c("# filtro por variables y valores", "filter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74", 
         "               \"762\" = \"304092\" # variable id = 762, value id = 304092", 
         "               )", "", "# Filtrar datos para una fecha en particular", 
-        "tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,", 
+        "tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", validate = FALSE,", 
-        "                      dateStart = \"2025/01/01\", dateEnd = \"2025/01/01\")", 
+        "                      dateStart = \"2026/01/01\", dateEnd = \"2026/01/01\")", 
         "tabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla4b, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -1791,7 +1791,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla4c", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla4c", code = "# filtro por variables y valores\nfilter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74\n               \"762\" = \"304092\" # variable id = 762, value id = 304092\n               )\n\n# Filtrar datos para un rango de fechas\ntabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,\n                      tip = \"A\", validate = FALSE,\n                      dateStart = \"2024/01/01\", dateEnd = \"2024/12/01\")\ntabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]", 
+    chunks = list(list(label = "tabla4c", code = "# filtro por variables y valores\nfilter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74\n               \"762\" = \"304092\" # variable id = 762, value id = 304092\n               )\n\n# Filtrar datos para un rango de fechas\ntabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,\n                      tip = \"A\", validate = FALSE,\n                      dateStart = \"2025/01/01\", dateEnd = \"2025/12/01\")\ntabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]", 
         opts = list(label = "\"tabla4c\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -1814,9 +1814,9 @@ learnr:::store_exercise_cache(structure(list(label = "tabla4c", global_setup = s
         code = c("# filtro por variables y valores", "filter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74", 
         "               \"762\" = \"304092\" # variable id = 762, value id = 304092", 
         "               )", "", "# Filtrar datos para un rango de fechas", 
-        "tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,", 
+        "tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", validate = FALSE,", 
-        "                      dateStart = \"2024/01/01\", dateEnd = \"2024/12/01\")", 
+        "                      dateStart = \"2025/01/01\", dateEnd = \"2025/12/01\")", 
         "tabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla4c, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -1837,7 +1837,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla4d", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla4d", code = "# filtro por variables y valores\nfilter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74\n               \"762\" = \"304092\" # variable id = 762, value id = 304092\n               )\n\n# Filtrar datos para un rango de fechas abierto\ntabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,\n                      tip = \"A\", validate = FALSE,\n                      dateStart = \"2025/01/01\")\ntabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]", 
+    chunks = list(list(label = "tabla4d", code = "# filtro por variables y valores\nfilter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74\n               \"762\" = \"304092\" # variable id = 762, value id = 304092\n               )\n\n# Filtrar datos para un rango de fechas abierto\ntabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,\n                      tip = \"A\", validate = FALSE,\n                      dateStart = \"2026/01/01\")\ntabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]", 
         opts = list(label = "\"tabla4d\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -1860,9 +1860,9 @@ learnr:::store_exercise_cache(structure(list(label = "tabla4d", global_setup = s
         code = c("# filtro por variables y valores", "filter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74", 
         "               \"762\" = \"304092\" # variable id = 762, value id = 304092", 
         "               )", "", "# Filtrar datos para un rango de fechas abierto", 
-        "tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,", 
+        "tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", validate = FALSE,", 
-        "                      dateStart = \"2025/01/01\")", 
+        "                      dateStart = \"2026/01/01\")", 
         "tabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla4d, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -1883,7 +1883,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla4e", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla4e", code = "# filtro por variables y valores\nfilter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74\n               \"762\" = \"304092\" # variable id = 762, value id = 304092\n               )\n\n# Filtrar datos para varias fechas\ntabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,\n                      tip = \"A\", validate = FALSE,\n                      dateStart = c(\"2023/01/01\", \"2024/01/01\", \"2025/01/01\"), \n                      dateEnd = c(\"2023/01/01\", \"2024/01/01\", \"2025/01/01\"))\ntabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]", 
+    chunks = list(list(label = "tabla4e", code = "# filtro por variables y valores\nfilter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74\n               \"762\" = \"304092\" # variable id = 762, value id = 304092\n               )\n\n# Filtrar datos para varias fechas\ntabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,\n                      tip = \"A\", validate = FALSE,\n                      dateStart = c(\"2024/01/01\", \"2025/01/01\", \"2026/01/01\"), \n                      dateEnd = c(\"2024/01/01\", \"2025/01/01\", \"2026/01/01\"))\ntabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]", 
         opts = list(label = "\"tabla4e\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -1906,10 +1906,10 @@ learnr:::store_exercise_cache(structure(list(label = "tabla4e", global_setup = s
         code = c("# filtro por variables y valores", "filter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74", 
         "               \"762\" = \"304092\" # variable id = 762, value id = 304092", 
         "               )", "", "# Filtrar datos para varias fechas", 
-        "tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,", 
+        "tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", validate = FALSE,", 
-        "                      dateStart = c(\"2023/01/01\", \"2024/01/01\", \"2025/01/01\"), ", 
-        "                      dateEnd = c(\"2023/01/01\", \"2024/01/01\", \"2025/01/01\"))", 
+        "                      dateStart = c(\"2024/01/01\", \"2025/01/01\", \"2026/01/01\"), ", 
+        "                      dateEnd = c(\"2024/01/01\", \"2025/01/01\", \"2026/01/01\"))", 
         "tabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla4e, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -1930,7 +1930,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla4g", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla4g", code = "# filtro por variables y valores\nfilter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74\n               \"762\" = \"304092\" # variable id = 762, value id = 304092\n               )\n\n# Filtrar datos para un rango de fechas múltiple\ntabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,\n                      tip = \"A\", validate = FALSE,\n                      dateStart = c(\"2023/01/01\", \"2024/01/01\", \"2025/01/01\"),\n                      dateEnd = c(\"2023/03/01\", \"2024/03/01\", \"2025/03/01\"))\ntabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]", 
+    chunks = list(list(label = "tabla4g", code = "# filtro por variables y valores\nfilter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74\n               \"762\" = \"304092\" # variable id = 762, value id = 304092\n               )\n\n# Filtrar datos para un rango de fechas múltiple\ntabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,\n                      tip = \"A\", validate = FALSE,\n                      dateStart = c(\"2024/01/01\", \"2025/01/01\", \"2026/01/01\"),\n                      dateEnd = c(\"2024/03/01\", \"2025/03/01\", \"2026/03/01\"))\ntabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]", 
         opts = list(label = "\"tabla4g\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -1953,10 +1953,10 @@ learnr:::store_exercise_cache(structure(list(label = "tabla4g", global_setup = s
         code = c("# filtro por variables y valores", "filter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74", 
         "               \"762\" = \"304092\" # variable id = 762, value id = 304092", 
         "               )", "", "# Filtrar datos para un rango de fechas múltiple", 
-        "tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,", 
+        "tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", validate = FALSE,", 
-        "                      dateStart = c(\"2023/01/01\", \"2024/01/01\", \"2025/01/01\"),", 
-        "                      dateEnd = c(\"2023/03/01\", \"2024/03/01\", \"2025/03/01\"))", 
+        "                      dateStart = c(\"2024/01/01\", \"2025/01/01\", \"2026/01/01\"),", 
+        "                      dateEnd = c(\"2024/03/01\", \"2025/03/01\", \"2026/03/01\"))", 
         "tabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla4g, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -1977,7 +1977,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla4h", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla4h", code = "# filtro por variables y valores\nfilter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74\n               \"762\" = \"304092\" # variable id = 762, value id = 304092\n               )\n\n# Filtrar datos para un rango de fechas múltiple y rango abierto final\ntabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,\n                      tip = \"A\", validate = FALSE,\n                      dateStart = c(\"2023/01/01\", \"2024/01/01\", \"2025/01/01\"), \n                      dateEnd = c(\"2023/03/01\", \"2024/03/01\"))\ntabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]", 
+    chunks = list(list(label = "tabla4h", code = "# filtro por variables y valores\nfilter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74\n               \"762\" = \"304092\" # variable id = 762, value id = 304092\n               )\n\n# Filtrar datos para un rango de fechas múltiple y rango abierto final\ntabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,\n                      tip = \"A\", validate = FALSE,\n                      dateStart = c(\"2024/01/01\", \"2025/01/01\", \"2026/01/01\"), \n                      dateEnd = c(\"2024/03/01\", \"2025/03/01\"))\ntabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]", 
         opts = list(label = "\"tabla4h\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -2000,10 +2000,10 @@ learnr:::store_exercise_cache(structure(list(label = "tabla4h", global_setup = s
         code = c("# filtro por variables y valores", "filter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74", 
         "               \"762\" = \"304092\" # variable id = 762, value id = 304092", 
         "               )", "", "# Filtrar datos para un rango de fechas múltiple y rango abierto final", 
-        "tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,", 
+        "tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", validate = FALSE,", 
-        "                      dateStart = c(\"2023/01/01\", \"2024/01/01\", \"2025/01/01\"), ", 
-        "                      dateEnd = c(\"2023/03/01\", \"2024/03/01\"))", 
+        "                      dateStart = c(\"2024/01/01\", \"2025/01/01\", \"2026/01/01\"), ", 
+        "                      dateEnd = c(\"2024/03/01\", \"2025/03/01\"))", 
         "tabla[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla4h, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -2024,7 +2024,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla5", global_setup = st
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla5", code = "metadata <- get_metadata_table_varval(idTable = 50913)\nmetadata[,c(\"Nombre\",\"Id\",\"Fk_Variable\")]", 
+    chunks = list(list(label = "tabla5", code = "metadata <- get_metadata_table_varval(idTable = 76136)\nmetadata[,c(\"Nombre\",\"Id\",\"Fk_Variable\")]", 
         opts = list(label = "\"tabla5\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -2044,7 +2044,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla5", global_setup = st
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "tabla5", exercise = TRUE, 
-        code = c("metadata <- get_metadata_table_varval(idTable = 50913)", 
+        code = c("metadata <- get_metadata_table_varval(idTable = 76136)", 
         "metadata[,c(\"Nombre\",\"Id\",\"Fk_Variable\")]"), out.width.px = 624, 
         out.height.px = 384, params.src = "tabla5, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -2065,7 +2065,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla6", global_setup = st
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla6", code = "filter <- list(\"3\" = \"74\" ,      # variable id = 3, valor id = 74\n               \"762\" = \"304092\", # variable id = 762, valor id = 304092\n               \"70\" = \"9003\"     # variable id = 70, valor id = 9003\n               )\n\n# Obtenemos los datos filtrados \nipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 2, validate = FALSE)\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
+    chunks = list(list(label = "tabla6", code = "filter <- list(\"3\" = \"74\" ,      # variable id = 3, valor id = 74\n               \"762\" = \"304092\", # variable id = 762, valor id = 304092\n               \"70\" = \"9003\"     # variable id = 70, valor id = 9003\n               )\n\n# Obtenemos los datos filtrados \nipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 2, validate = FALSE)\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
         opts = list(label = "\"tabla6\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -2089,7 +2089,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla6", global_setup = st
         "               \"762\" = \"304092\", # variable id = 762, valor id = 304092", 
         "               \"70\" = \"9003\"     # variable id = 70, valor id = 9003", 
         "               )", "", "# Obtenemos los datos filtrados ", 
-        "ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,", 
+        "ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", nlast = 2, validate = FALSE)", 
         "ipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla6, exercise=TRUE", 
@@ -2111,7 +2111,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla6b", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla6b", code = "filter <- list(\"3\" = \"74\" ,      # variable id = 3, valor id = 74\n               \"762\" = \"304092\", # variable id = 762, valor id = 304092\n               \"70\" = \"\"         # variable id = 70, todos los valores\n               )\n\n# Obtenemos los datos filtrados \nipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 2, validate = FALSE)\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
+    chunks = list(list(label = "tabla6b", code = "filter <- list(\"3\" = \"74\" ,      # variable id = 3, valor id = 74\n               \"762\" = \"304092\", # variable id = 762, valor id = 304092\n               \"70\" = \"\"         # variable id = 70, todos los valores\n               )\n\n# Obtenemos los datos filtrados \nipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 2, validate = FALSE)\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
         opts = list(label = "\"tabla6b\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -2135,7 +2135,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla6b", global_setup = s
         "               \"762\" = \"304092\", # variable id = 762, valor id = 304092", 
         "               \"70\" = \"\"         # variable id = 70, todos los valores", 
         "               )", "", "# Obtenemos los datos filtrados ", 
-        "ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,", 
+        "ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", nlast = 2, validate = FALSE)", 
         "ipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla6b, exercise=TRUE", 
@@ -2157,7 +2157,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla6c", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla6c", code = "filter <- list(\"3\" = \"74\" ,      # variable id = 3, valor id = 74\n               \"762\" = \"304092\", # variable id = 762, valor id = 304092\n               \"70\" = c(\"9003\", \"8999\")  # variable id = 70, valores id 9003 y 8999\n               )\n\n# Obtenemos los datos filtrados \nipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 2, validate = FALSE)\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
+    chunks = list(list(label = "tabla6c", code = "filter <- list(\"3\" = \"74\" ,      # variable id = 3, valor id = 74\n               \"762\" = \"304092\", # variable id = 762, valor id = 304092\n               \"70\" = c(\"9003\", \"8999\")  # variable id = 70, valores id 9003 y 8999\n               )\n\n# Obtenemos los datos filtrados \nipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 2, validate = FALSE)\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
         opts = list(label = "\"tabla6c\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -2181,7 +2181,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla6c", global_setup = s
         "               \"762\" = \"304092\", # variable id = 762, valor id = 304092", 
         "               \"70\" = c(\"9003\", \"8999\")  # variable id = 70, valores id 9003 y 8999", 
         "               )", "", "# Obtenemos los datos filtrados ", 
-        "ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,", 
+        "ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", nlast = 2, validate = FALSE)", 
         "ipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla6c, exercise=TRUE", 
@@ -2203,7 +2203,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla6d", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla6d", code = "filter <- list(\"3\" = \"74\" ,       # variable id = 3, valor id = 74\n               \"762\" = \"-304092\", # excluir variable id = 762, valor id = 304092\n               \"70\" = \"9003\"      # variable id = 70, valor id = 9003\n               )\n\n# Obtenemos los datos filtrados \nipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 2, validate = FALSE)\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
+    chunks = list(list(label = "tabla6d", code = "filter <- list(\"3\" = \"74\" ,       # variable id = 3, valor id = 74\n               \"762\" = \"-304092\", # excluir variable id = 762, valor id = 304092\n               \"70\" = \"9003\"      # variable id = 70, valor id = 9003\n               )\n\n# Obtenemos los datos filtrados \nipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 2, validate = FALSE)\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
         opts = list(label = "\"tabla6d\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -2227,7 +2227,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla6d", global_setup = s
         "               \"762\" = \"-304092\", # excluir variable id = 762, valor id = 304092", 
         "               \"70\" = \"9003\"      # variable id = 70, valor id = 9003", 
         "               )", "", "# Obtenemos los datos filtrados ", 
-        "ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,", 
+        "ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", nlast = 2, validate = FALSE)", 
         "ipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla6d, exercise=TRUE", 
@@ -2598,7 +2598,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla13", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla13", code = "# Definimos el filtro utilizando etiquetas\nfilter <- list(tipodato = \"variación anual\" , # variable id = 3\n               grupo = \"índice general\"       # variable id = 762\n               )\n\n# Obtenemos los datos de la tabla\nipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 5, validate = FALSE)\n\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
+    chunks = list(list(label = "tabla13", code = "# Definimos el filtro utilizando etiquetas\nfilter <- list(tipodato = \"variación anual\" , # variable id = 3\n               grupo = \"índice general\"       # variable id = 762\n               )\n\n# Obtenemos los datos de la tabla\nipc <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 5, validate = FALSE)\n\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
         opts = list(label = "\"tabla13\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -2622,7 +2622,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla13", global_setup = s
         "filter <- list(tipodato = \"variación anual\" , # variable id = 3", 
         "               grupo = \"índice general\"       # variable id = 762", 
         "               )", "", "# Obtenemos los datos de la tabla", 
-        "ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,", 
+        "ipc <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", nlast = 5, validate = FALSE)", 
         "", "ipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla13, exercise=TRUE", 
@@ -2644,7 +2644,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla14", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla14", code = "# Definimos el filtro con el contenedor values\nfilter <- list(values = c(\"variación anual\" , \"índice general\"))\n\n# Obtenemos los datos de la tabla\nipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 5, validate = FALSE)\n\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
+    chunks = list(list(label = "tabla14", code = "# Definimos el filtro con el contenedor values\nfilter <- list(values = c(\"variación anual\" , \"índice general\"))\n\n# Obtenemos los datos de la tabla\nipc <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 5, validate = FALSE)\n\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
         opts = list(label = "\"tabla14\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -2666,7 +2666,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla14", global_setup = s
         max.print = 1000, label = "tabla14", exercise = TRUE, 
         code = c("# Definimos el filtro con el contenedor values", 
         "filter <- list(values = c(\"variación anual\" , \"índice general\"))", 
-        "", "# Obtenemos los datos de la tabla", "ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,", 
+        "", "# Obtenemos los datos de la tabla", "ipc <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", nlast = 5, validate = FALSE)", 
         "", "ipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla14, exercise=TRUE", 
@@ -2688,7 +2688,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla13b", global_setup = 
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla13b", code = "# Definimos el filtro utilizando etiquetas\nfilter <- list(tipodato = \"variación anual\" , # variable id = 3\n               grupo = \"-índice general\"      # variable id = 762\n               )\n\n# Obtenemos los datos de la tabla\nipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 5, validate = FALSE)\n\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
+    chunks = list(list(label = "tabla13b", code = "# Definimos el filtro utilizando etiquetas\nfilter <- list(tipodato = \"variación anual\" , # variable id = 3\n               grupo = \"-índice general\"      # variable id = 762\n               )\n\n# Obtenemos los datos de la tabla\nipc <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 5, validate = FALSE)\n\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
         opts = list(label = "\"tabla13b\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -2712,7 +2712,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla13b", global_setup = 
         "filter <- list(tipodato = \"variación anual\" , # variable id = 3", 
         "               grupo = \"-índice general\"      # variable id = 762", 
         "               )", "", "# Obtenemos los datos de la tabla", 
-        "ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,", 
+        "ipc <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", nlast = 5, validate = FALSE)", 
         "", "ipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla13b, exercise=TRUE", 
@@ -2868,7 +2868,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla15", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "tabla15", code = "# Definimos el filtro utilizando etiquetas\nfilter <- list(values = c(\"producto interior\", \"datos ajustados\", \"variación anual\"))\n\n\n# Obtenemos los datos de la tabla\npib <- get_data_table(idTable = 30679, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 5, validate = FALSE)\n\npib[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
+    chunks = list(list(label = "tabla15", code = "# Definimos el filtro utilizando etiquetas\nfilter <- list(values = c(\"producto interior\", \"datos ajustados\", \"variación anual\"))\n\n\n# Obtenemos los datos de la tabla\npib <- get_data_table(idTable = 67822, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 5, validate = FALSE)\n\npib[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
         opts = list(label = "\"tabla15\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -2890,7 +2890,7 @@ learnr:::store_exercise_cache(structure(list(label = "tabla15", global_setup = s
         max.print = 1000, label = "tabla15", exercise = TRUE, 
         code = c("# Definimos el filtro utilizando etiquetas", 
         "filter <- list(values = c(\"producto interior\", \"datos ajustados\", \"variación anual\"))", 
-        "", "", "# Obtenemos los datos de la tabla", "pib <- get_data_table(idTable = 30679, filter = filter, unnest = TRUE,", 
+        "", "", "# Obtenemos los datos de la tabla", "pib <- get_data_table(idTable = 67822, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", nlast = 5, validate = FALSE)", 
         "", "pib[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "tabla15, exercise=TRUE", 
@@ -2912,7 +2912,7 @@ learnr:::store_exercise_cache(structure(list(label = "series1", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "series1", code = "series <- get_data_series(codSeries = \"IPC251856\", tip = \"A\")\nseries$Data", 
+    chunks = list(list(label = "series1", code = "series <- get_data_series(codSeries = \"IPC290750\", tip = \"A\")\nseries$Data", 
         opts = list(label = "\"series1\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -2932,7 +2932,7 @@ learnr:::store_exercise_cache(structure(list(label = "series1", global_setup = s
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "series1", exercise = TRUE, 
-        code = c("series <- get_data_series(codSeries = \"IPC251856\", tip = \"A\")", 
+        code = c("series <- get_data_series(codSeries = \"IPC290750\", tip = \"A\")", 
         "series$Data"), out.width.px = 624, out.height.px = 384, 
         params.src = "series1, exercise=TRUE", fig.num = 0, exercise.df_print = "paged", 
         exercise.checker = "NULL"), engine = "r", version = "4"), class = c("r", 
@@ -2952,7 +2952,7 @@ learnr:::store_exercise_cache(structure(list(label = "series2", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "series2", code = "series <- get_data_series(codSeries = \"IPC251856\", tip = \"A\", nlast = 5, unnest = TRUE)\nseries", 
+    chunks = list(list(label = "series2", code = "series <- get_data_series(codSeries = \"IPC290750\", tip = \"A\", nlast = 5, unnest = TRUE)\nseries", 
         opts = list(label = "\"series2\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -2972,7 +2972,7 @@ learnr:::store_exercise_cache(structure(list(label = "series2", global_setup = s
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "series2", exercise = TRUE, 
-        code = c("series <- get_data_series(codSeries = \"IPC251856\", tip = \"A\", nlast = 5, unnest = TRUE)", 
+        code = c("series <- get_data_series(codSeries = \"IPC290750\", tip = \"A\", nlast = 5, unnest = TRUE)", 
         "series"), out.width.px = 624, out.height.px = 384, params.src = "series2, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -2992,7 +2992,7 @@ learnr:::store_exercise_cache(structure(list(label = "series3", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "series3", code = "series <- get_data_series(codSeries = \"IPC251856\", tip = \"A\", unnest = TRUE, dateStart = \"2023/01/01\", \n                          dateEnd = \"2023/04/01\")\nseries", 
+    chunks = list(list(label = "series3", code = "series <- get_data_series(codSeries = \"IPC290750\", tip = \"A\", unnest = TRUE, dateStart = \"2023/01/01\", \n                          dateEnd = \"2023/04/01\")\nseries", 
         opts = list(label = "\"series3\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -3012,7 +3012,7 @@ learnr:::store_exercise_cache(structure(list(label = "series3", global_setup = s
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "series3", exercise = TRUE, 
-        code = c("series <- get_data_series(codSeries = \"IPC251856\", tip = \"A\", unnest = TRUE, dateStart = \"2023/01/01\", ", 
+        code = c("series <- get_data_series(codSeries = \"IPC290750\", tip = \"A\", unnest = TRUE, dateStart = \"2023/01/01\", ", 
         "                          dateEnd = \"2023/04/01\")", 
         "series"), out.width.px = 624, out.height.px = 384, params.src = "series3, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -3033,7 +3033,7 @@ learnr:::store_exercise_cache(structure(list(label = "series4", global_setup = s
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "series4", code = "series <- get_data_series(codSeries = \"IPC251856\", tip = \"A\", unnest = TRUE, dateStart = \"2024/01/01\")\nseries", 
+    chunks = list(list(label = "series4", code = "series <- get_data_series(codSeries = \"IPC290750\", tip = \"A\", unnest = TRUE, dateStart = \"2024/01/01\")\nseries", 
         opts = list(label = "\"series4\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -3053,7 +3053,7 @@ learnr:::store_exercise_cache(structure(list(label = "series4", global_setup = s
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "series4", exercise = TRUE, 
-        code = c("series <- get_data_series(codSeries = \"IPC251856\", tip = \"A\", unnest = TRUE, dateStart = \"2024/01/01\")", 
+        code = c("series <- get_data_series(codSeries = \"IPC290750\", tip = \"A\", unnest = TRUE, dateStart = \"2024/01/01\")", 
         "series"), out.width.px = 624, out.height.px = 384, params.src = "series4, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -3647,7 +3647,7 @@ learnr:::store_exercise_cache(structure(list(label = "infotab2", global_setup = 
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "infotab2", code = "groups <- get_metadata_table_groups(idTable = 50913)\ngroups", 
+    chunks = list(list(label = "infotab2", code = "groups <- get_metadata_table_groups(idTable = 76136)\ngroups", 
         opts = list(label = "\"infotab2\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -3667,7 +3667,7 @@ learnr:::store_exercise_cache(structure(list(label = "infotab2", global_setup = 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "infotab2", exercise = TRUE, 
-        code = c("groups <- get_metadata_table_groups(idTable = 50913)", 
+        code = c("groups <- get_metadata_table_groups(idTable = 76136)", 
         "groups"), out.width.px = 624, out.height.px = 384, params.src = "infotab2, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -3687,7 +3687,7 @@ learnr:::store_exercise_cache(structure(list(label = "infotab3", global_setup = 
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "infotab3", code = "values <- get_metadata_table_values(idTable = 50913, idGroup = 110924)\nvalues", 
+    chunks = list(list(label = "infotab3", code = "values <- get_metadata_table_values(idTable = 76136, idGroup = 155612)\nvalues", 
         opts = list(label = "\"infotab3\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -3707,7 +3707,7 @@ learnr:::store_exercise_cache(structure(list(label = "infotab3", global_setup = 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "infotab3", exercise = TRUE, 
-        code = c("values <- get_metadata_table_values(idTable = 50913, idGroup = 110924)", 
+        code = c("values <- get_metadata_table_values(idTable = 76136, idGroup = 155612)", 
         "values"), out.width.px = 624, out.height.px = 384, params.src = "infotab3, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -3727,7 +3727,7 @@ learnr:::store_exercise_cache(structure(list(label = "infotab4", global_setup = 
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "infotab4", code = "values <- get_metadata_table_varval(idTable = 50913)\nvalues", 
+    chunks = list(list(label = "infotab4", code = "values <- get_metadata_table_varval(idTable = 76136)\nvalues", 
         opts = list(label = "\"infotab4\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -3747,7 +3747,7 @@ learnr:::store_exercise_cache(structure(list(label = "infotab4", global_setup = 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "infotab4", exercise = TRUE, 
-        code = c("values <- get_metadata_table_varval(idTable = 50913)", 
+        code = c("values <- get_metadata_table_varval(idTable = 76136)", 
         "values"), out.width.px = 624, out.height.px = 384, params.src = "infotab4, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -3767,7 +3767,7 @@ learnr:::store_exercise_cache(structure(list(label = "infoserie1", global_setup 
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "infoserie1", code = "series <- get_metadata_series(codSeries = \"IPC251852\")\nas.data.frame(series)", 
+    chunks = list(list(label = "infoserie1", code = "series <- get_metadata_series(codSeries = \"IPC290750\")\nas.data.frame(series)", 
         opts = list(label = "\"infoserie1\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -3787,7 +3787,7 @@ learnr:::store_exercise_cache(structure(list(label = "infoserie1", global_setup 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "infoserie1", exercise = TRUE, 
-        code = c("series <- get_metadata_series(codSeries = \"IPC251852\")", 
+        code = c("series <- get_metadata_series(codSeries = \"IPC290750\")", 
         "as.data.frame(series)"), out.width.px = 624, out.height.px = 384, 
         params.src = "infoserie1, exercise=TRUE", fig.num = 0, 
         exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -3808,7 +3808,7 @@ learnr:::store_exercise_cache(structure(list(label = "infoserie2", global_setup 
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "infoserie2", code = "values <- get_metadata_series_values(codSeries = \"IPC251852\")\nvalues", 
+    chunks = list(list(label = "infoserie2", code = "values <- get_metadata_series_values(codSeries = \"IPC290750\")\nvalues", 
         opts = list(label = "\"infoserie2\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -3828,7 +3828,7 @@ learnr:::store_exercise_cache(structure(list(label = "infoserie2", global_setup 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "infoserie2", exercise = TRUE, 
-        code = c("values <- get_metadata_series_values(codSeries = \"IPC251852\")", 
+        code = c("values <- get_metadata_series_values(codSeries = \"IPC290750\")", 
         "values"), out.width.px = 624, out.height.px = 384, params.src = "infoserie2, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -3848,7 +3848,7 @@ learnr:::store_exercise_cache(structure(list(label = "infoserie3", global_setup 
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "infoserie3", code = "series <- get_metadata_series_table(idTable = 50913)\nhead(series)", 
+    chunks = list(list(label = "infoserie3", code = "series <- get_metadata_series_table(idTable = 76136)\nhead(series)", 
         opts = list(label = "\"infoserie3\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -3868,7 +3868,7 @@ learnr:::store_exercise_cache(structure(list(label = "infoserie3", global_setup 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "infoserie3", exercise = TRUE, 
-        code = c("series <- get_metadata_series_table(idTable = 50913)", 
+        code = c("series <- get_metadata_series_table(idTable = 76136)", 
         "head(series)"), out.width.px = 624, out.height.px = 384, 
         params.src = "infoserie3, exercise=TRUE", fig.num = 0, 
         exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -3889,7 +3889,7 @@ learnr:::store_exercise_cache(structure(list(label = "infoserie4", global_setup 
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "infoserie4", code = "filter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74\n               \"762\" = \"304092\" # variable id = 762, value id = 304092\n               )\n\n# Obtenemos los datos filtrados \nseries <- get_metadata_series_table(idTable = 50913, filter = filter)\nseries", 
+    chunks = list(list(label = "infoserie4", code = "filter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74\n               \"762\" = \"304092\" # variable id = 762, value id = 304092\n               )\n\n# Obtenemos los datos filtrados \nseries <- get_metadata_series_table(idTable = 76136, filter = filter)\nseries", 
         opts = list(label = "\"infoserie4\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -3912,7 +3912,7 @@ learnr:::store_exercise_cache(structure(list(label = "infoserie4", global_setup 
         code = c("filter <- list(\"3\" = \"74\" ,     # variable id = 3, value id = 74", 
         "               \"762\" = \"304092\" # variable id = 762, value id = 304092", 
         "               )", "", "# Obtenemos los datos filtrados ", 
-        "series <- get_metadata_series_table(idTable = 50913, filter = filter)", 
+        "series <- get_metadata_series_table(idTable = 76136, filter = filter)", 
         "series"), out.width.px = 624, out.height.px = 384, params.src = "infoserie4, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -4212,7 +4212,7 @@ learnr:::store_exercise_cache(structure(list(label = "validate_2", global_setup 
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "validate_2", code = "filter <- list(\"3\" = \"74\" ,      # variable id = 3, valor id = 74\n               \"762\" = \"304092\", # variable id = 762, valor id = 304092\n               \"70\" = \"9003\"     # variable id = 70, valor id = 9003\n               )\n\n# Con verbose = TRUE and validate = TRUE\nipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 2, verbose = TRUE, validate = TRUE)\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
+    chunks = list(list(label = "validate_2", code = "filter <- list(\"3\" = \"74\" ,      # variable id = 3, valor id = 74\n               \"762\" = \"304092\", # variable id = 762, valor id = 304092\n               \"70\" = \"9003\"     # variable id = 70, valor id = 9003\n               )\n\n# Con verbose = TRUE and validate = TRUE\nipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 2, verbose = TRUE, validate = TRUE)\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
         opts = list(label = "\"validate_2\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -4236,7 +4236,7 @@ learnr:::store_exercise_cache(structure(list(label = "validate_2", global_setup 
         "               \"762\" = \"304092\", # variable id = 762, valor id = 304092", 
         "               \"70\" = \"9003\"     # variable id = 70, valor id = 9003", 
         "               )", "", "# Con verbose = TRUE and validate = TRUE", 
-        "ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,", 
+        "ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", nlast = 2, verbose = TRUE, validate = TRUE)", 
         "ipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "validate_2, exercise=TRUE", 
@@ -4258,7 +4258,7 @@ learnr:::store_exercise_cache(structure(list(label = "validate_3", global_setup 
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "validate_3", code = "filter <- list(\"3\" = \"74\" ,      # variable id = 3, valor id = 74\n               \"762\" = \"304092\", # variable id = 762, valor id = 304092\n               \"70\" = \"9003\"     # variable id = 70, valor id = 9003\n               )\n\n# Con verbose = TRUE and validate = FALSE\nipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 2, verbose = TRUE, validate = FALSE)\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
+    chunks = list(list(label = "validate_3", code = "filter <- list(\"3\" = \"74\" ,      # variable id = 3, valor id = 74\n               \"762\" = \"304092\", # variable id = 762, valor id = 304092\n               \"70\" = \"9003\"     # variable id = 70, valor id = 9003\n               )\n\n# Con verbose = TRUE and validate = FALSE\nipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,\n                      tip = \"A\", nlast = 2, verbose = TRUE, validate = FALSE)\nipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]", 
         opts = list(label = "\"validate_3\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -4282,7 +4282,7 @@ learnr:::store_exercise_cache(structure(list(label = "validate_3", global_setup 
         "               \"762\" = \"304092\", # variable id = 762, valor id = 304092", 
         "               \"70\" = \"9003\"     # variable id = 70, valor id = 9003", 
         "               )", "", "# Con verbose = TRUE and validate = FALSE", 
-        "ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,", 
+        "ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,", 
         "                      tip = \"A\", nlast = 2, verbose = TRUE, validate = FALSE)", 
         "ipc[,c(\"Nombre\",\"T3_Periodo\",\"Anyo\",\"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "validate_3, exercise=TRUE", 
@@ -4344,7 +4344,7 @@ learnr:::store_exercise_cache(structure(list(label = "unnest_1", global_setup = 
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "unnest_1", code = "# Definimos un filtro\nfilter <- list(values = c(\"variación anual\" , \"variación mensual\", \"índice general\"))\n\n# Obtenemos los datos con unnest = FALSE\nipc <- get_data_table(idTable = 50902, filter = filter, tip = \"A\", nlast = 3)\n\n# Tenemos dos filas (series)\n ipc[,c(\"Nombre\", \"Data\")]\n \n# La columna Data es una lista de dos dataframes, uno por fila \n ipc$Data", 
+    chunks = list(list(label = "unnest_1", code = "# Definimos un filtro\nfilter <- list(values = c(\"variación anual\" , \"variación mensual\", \"índice general\"))\n\n# Obtenemos los datos con unnest = FALSE\nipc <- get_data_table(idTable = 76125, filter = filter, tip = \"A\", nlast = 3)\n\n# Tenemos dos filas (series)\n ipc[,c(\"Nombre\", \"Data\")]\n \n# La columna Data es una lista de dos dataframes, uno por fila \n ipc$Data", 
         opts = list(label = "\"unnest_1\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -4365,7 +4365,7 @@ learnr:::store_exercise_cache(structure(list(label = "unnest_1", global_setup = 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "unnest_1", exercise = TRUE, 
         code = c("# Definimos un filtro", "filter <- list(values = c(\"variación anual\" , \"variación mensual\", \"índice general\"))", 
-        "", "# Obtenemos los datos con unnest = FALSE", "ipc <- get_data_table(idTable = 50902, filter = filter, tip = \"A\", nlast = 3)", 
+        "", "# Obtenemos los datos con unnest = FALSE", "ipc <- get_data_table(idTable = 76125, filter = filter, tip = \"A\", nlast = 3)", 
         "", "# Tenemos dos filas (series)", " ipc[,c(\"Nombre\", \"Data\")]", 
         " ", "# La columna Data es una lista de dos dataframes, uno por fila ", 
         " ipc$Data"), out.width.px = 624, out.height.px = 384, 
@@ -4388,7 +4388,7 @@ learnr:::store_exercise_cache(structure(list(label = "unnest_2", global_setup = 
 "if (!require(\"ineapir\")) {", "  remotes::install_github(\"es-ine/ineapir\")", 
 "  library(ineapir)", "}", "knitr::opts_chunk$set(echo = FALSE)"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "unnest_2", code = "# Definimos un filtro\nfilter <- list(values = c(\"variación anual\" , \"variación mensual\", \"índice general\"))\n\n# Obtenemos los datos con unnest = FALSE\nipc <- get_data_table(idTable = 50902, filter = filter, tip = \"A\",\n                      nlast = 3, unnest = TRUE)\n\n# Único dataframe con 6 filas\nipc[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]", 
+    chunks = list(list(label = "unnest_2", code = "# Definimos un filtro\nfilter <- list(values = c(\"variación anual\" , \"variación mensual\", \"índice general\"))\n\n# Obtenemos los datos con unnest = FALSE\nipc <- get_data_table(idTable = 76125, filter = filter, tip = \"A\",\n                      nlast = 3, unnest = TRUE)\n\n# Único dataframe con 6 filas\nipc[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]", 
         opts = list(label = "\"unnest_2\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, tests = NULL, options = list(
@@ -4409,7 +4409,7 @@ learnr:::store_exercise_cache(structure(list(label = "unnest_2", global_setup = 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "unnest_2", exercise = TRUE, 
         code = c("# Definimos un filtro", "filter <- list(values = c(\"variación anual\" , \"variación mensual\", \"índice general\"))", 
-        "", "# Obtenemos los datos con unnest = FALSE", "ipc <- get_data_table(idTable = 50902, filter = filter, tip = \"A\",", 
+        "", "# Obtenemos los datos con unnest = FALSE", "ipc <- get_data_table(idTable = 76125, filter = filter, tip = \"A\",", 
         "                      nlast = 3, unnest = TRUE)", "", 
         "# Único dataframe con 6 filas", "ipc[,c(\"Nombre\", \"T3_Periodo\", \"Anyo\", \"Valor\")]"
         ), out.width.px = 624, out.height.px = 384, params.src = "unnest_2, exercise=TRUE", 
@@ -4687,7 +4687,7 @@ learnr:::store_exercise_cache(structure(list(label = "volumen4", global_setup = 
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","cachem","checkmate","cli","compiler","datasets","digest","evaluate","fastmap","fontawesome","graphics","grDevices","htmltools","htmlwidgets","httpuv","ineapir","jquerylib","jsonlite","knitr","later","learnr","lifecycle","magrittr","methods","mime","promises","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","shiny","stats","tools","utils","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.5.0","4.5.1","0.9.0","1.1.0","2.3.2","3.6.5","4.5.1","4.5.1","0.6.37","1.0.4","1.2.0","0.5.3","4.5.1","4.5.1","0.5.8.1","1.6.4","1.6.16","0.2.3","0.1.4","2.0.0","1.50","1.4.2","0.11.5","1.0.4","2.0.3","4.5.1","0.13","1.3.3","2.6.1","1.1.0","1.1.6","2.29","2.0.4","0.17.1","0.4.10","1.11.1","4.5.1","4.5.1","4.5.1","3.0.2","0.52","1.8-4","2.3.10"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","cachem","checkmate","cli","compiler","datasets","digest","evaluate","fastmap","fontawesome","graphics","grDevices","htmltools","htmlwidgets","httpuv","ineapir","jquerylib","jsonlite","knitr","later","learnr","lifecycle","magrittr","methods","mime","promises","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","shiny","stats","tools","utils","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.5.0","4.5.1","0.9.0","1.1.0","2.3.2","3.6.5","4.5.1","4.5.1","0.6.37","1.0.4","1.2.0","0.5.3","4.5.1","4.5.1","0.5.8.1","1.6.4","1.6.16","0.2.5","0.1.4","2.0.0","1.50","1.4.2","0.11.5","1.0.4","2.0.3","4.5.1","0.13","1.3.3","2.6.1","1.1.0","1.1.6","2.29","2.1.1","0.17.1","0.4.10","1.11.1","4.5.1","4.5.1","4.5.1","3.0.2","0.52","1.8-4","2.3.10"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>

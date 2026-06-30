@@ -20,11 +20,11 @@ Para obtener los datos de una tabla es necesario conocer su código identificati
 Una vez se conoce el código de la tabla de interés, se puede utilizar la función [get_data_table()](https://es-ine.github.io/ineapir/reference/get_data_table.html) para obtener los datos asociados.
 
 ### Obtener todos los datos de la tabla
-Por ejemplo, para la tabla [Índices nacionales: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=50902) (Id 50902):
+Por ejemplo, para la tabla [Índices nacionales: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=76125) (Id 76125):
 
 
 ```{r tabla1, exercise=TRUE, exercise.eval=FALSE}
-tabla <- get_data_table(idTable = 50902, tip = "A")
+tabla <- get_data_table(idTable = 76125, tip = "A")
 head(tabla[,c("Nombre","Data")])
 ```
 
@@ -32,20 +32,20 @@ head(tabla[,c("Nombre","Data")])
 Utilizamos el parámetro `nlast`. Por ejemplo `nlast = 5´ para obtener los últimos 5 datos:
 
 ```{r tabla2, exercise=TRUE}
-tabla <- get_data_table(idTable = 50902, tip = "A", nlast = 5)
+tabla <- get_data_table(idTable = 76125, tip = "A", nlast = 5)
 head(tabla[,c("Nombre","Data")])
 ```
 
 La columna Data contiene un dataframe por cada fila con todos los periodos
 ```{r tabla3, exercise=TRUE}
-tabla <- get_data_table(idTable = 50902, tip = "A", nlast = 5)
+tabla <- get_data_table(idTable = 76125, tip = "A", nlast = 5)
 tabla$Data[[1]]
 ```
 
 
 Podemos unir todos los dataframe en uno sólo utilizando el parámetro `unnest = TRUE`
 ```{r tabla4, exercise=TRUE}
-tabla <- get_data_table(idTable = 50902, tip = "A", nlast = 5, unnest = TRUE)
+tabla <- get_data_table(idTable = 76125, tip = "A", nlast = 5, unnest = TRUE)
 head(tabla[,c("Nombre","T3_Periodo","Anyo","Valor")], n = 10)
 ```
 
@@ -63,9 +63,9 @@ filter <- list("3" = "74" ,     # variable id = 3, value id = 74
                )
 
 # Filtrar datos para una fecha en particular
-tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", validate = FALSE,
-                      dateStart = "2025/01/01", dateEnd = "2025/01/01")
+                      dateStart = "2026/01/01", dateEnd = "2026/01/01")
 tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
 ```
 
@@ -78,9 +78,9 @@ filter <- list("3" = "74" ,     # variable id = 3, value id = 74
                )
 
 # Filtrar datos para un rango de fechas
-tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", validate = FALSE,
-                      dateStart = "2024/01/01", dateEnd = "2024/12/01")
+                      dateStart = "2025/01/01", dateEnd = "2025/12/01")
 tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
 ```
 
@@ -93,9 +93,9 @@ filter <- list("3" = "74" ,     # variable id = 3, value id = 74
                )
 
 # Filtrar datos para un rango de fechas abierto
-tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", validate = FALSE,
-                      dateStart = "2025/01/01")
+                      dateStart = "2026/01/01")
 tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
 ```
 
@@ -109,10 +109,10 @@ filter <- list("3" = "74" ,     # variable id = 3, value id = 74
                )
 
 # Filtrar datos para varias fechas
-tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", validate = FALSE,
-                      dateStart = c("2023/01/01", "2024/01/01", "2025/01/01"), 
-                      dateEnd = c("2023/01/01", "2024/01/01", "2025/01/01"))
+                      dateStart = c("2024/01/01", "2025/01/01", "2026/01/01"), 
+                      dateEnd = c("2024/01/01", "2025/01/01", "2026/01/01"))
 tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
 ```
 
@@ -128,10 +128,10 @@ filter <- list("3" = "74" ,     # variable id = 3, value id = 74
                )
 
 # Filtrar datos para un rango de fechas múltiple
-tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", validate = FALSE,
-                      dateStart = c("2023/01/01", "2024/01/01", "2025/01/01"),
-                      dateEnd = c("2023/03/01", "2024/03/01", "2025/03/01"))
+                      dateStart = c("2024/01/01", "2025/01/01", "2026/01/01"),
+                      dateEnd = c("2024/03/01", "2025/03/01", "2026/03/01"))
 tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
 ```
 
@@ -147,10 +147,10 @@ filter <- list("3" = "74" ,     # variable id = 3, value id = 74
                )
 
 # Filtrar datos para un rango de fechas múltiple y rango abierto final
-tabla <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+tabla <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", validate = FALSE,
-                      dateStart = c("2023/01/01", "2024/01/01", "2025/01/01"), 
-                      dateEnd = c("2023/03/01", "2024/03/01"))
+                      dateStart = c("2024/01/01", "2025/01/01", "2026/01/01"), 
+                      dateEnd = c("2024/03/01", "2025/03/01"))
 tabla[,c("Nombre", "T3_Periodo", "Anyo", "Valor")]
 ```
 
@@ -160,10 +160,10 @@ Cuando realizamos una petición de datos de una tabla existe la posibilidad de f
 #### **Tablas Tempus 3**
 Para poder filtrar es necesario conocer los códigos identificadores numéricos (Id) de las variables y los valores por los que queremos filtrar. Por lo tanto, debemos hacer lo siguiente:
 
-1. Obtener información de las variables y valores de la tabla de interés, por ejemplo [Índices por comunidades autónomas: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=50913) (Id = 50913).
+1. Obtener información de las variables y valores de la tabla de interés, por ejemplo [Índices por comunidades autónomas: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=76136) (Id = 76136).
 
 ```{r tabla5, exercise=TRUE}
-metadata <- get_metadata_table_varval(idTable = 50913)
+metadata <- get_metadata_table_varval(idTable = 76136)
 metadata[,c("Nombre","Id","Fk_Variable")]
 ```
 
@@ -176,7 +176,7 @@ filter <- list("3" = "74" ,      # variable id = 3, valor id = 74
                )
 
 # Obtenemos los datos filtrados 
-ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 2, validate = FALSE)
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
@@ -190,7 +190,7 @@ filter <- list("3" = "74" ,      # variable id = 3, valor id = 74
                )
 
 # Obtenemos los datos filtrados 
-ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 2, validate = FALSE)
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
@@ -204,7 +204,7 @@ filter <- list("3" = "74" ,      # variable id = 3, valor id = 74
                )
 
 # Obtenemos los datos filtrados 
-ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 2, validate = FALSE)
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
@@ -217,7 +217,7 @@ filter <- list("3" = "74" ,       # variable id = 3, valor id = 74
                )
 
 # Obtenemos los datos filtrados 
-ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 2, validate = FALSE)
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
@@ -360,7 +360,7 @@ los códigos numéricos. Para ello, existen disponibles las siguientes etiquetas
 |values          | -    | Contenedor de valores |
 
 #### Ejemplo 1
-Por ejemplo, para la tabla [Índices nacionales: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=50902) (Id 50902)
+Por ejemplo, para la tabla [Índices nacionales: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=76125) (Id 76125)
 
 
 ```{r tabla13, exercise=TRUE}
@@ -370,7 +370,7 @@ filter <- list(tipodato = "variación anual" , # variable id = 3
                )
 
 # Obtenemos los datos de la tabla
-ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 5, validate = FALSE)
 
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
@@ -384,7 +384,7 @@ en el mismo vector en lugar de con etiquetas diferentes:
 filter <- list(values = c("variación anual" , "índice general"))
 
 # Obtenemos los datos de la tabla
-ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 5, validate = FALSE)
 
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
@@ -398,7 +398,7 @@ filter <- list(tipodato = "variación anual" , # variable id = 3
                )
 
 # Obtenemos los datos de la tabla
-ipc <- get_data_table(idTable = 50902, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76125, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 5, validate = FALSE)
 
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
@@ -451,7 +451,7 @@ poblacion[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
 
 #### Ejemplo 3
-Por ejemplo, para la tabla [PIB pm Oferta (Indices de volumen encadenado)](https://www.ine.es/jaxiT3/Tabla.htm?t=30679) (Id 30679). Podemos
+Por ejemplo, para la tabla [PIB pm Oferta (Indices de volumen encadenado)](https://www.ine.es/jaxiT3/Tabla.htm?t=67822) (Id 67822). Podemos
 utilizar el contenedor *values* aunque no existan etiquetas predefinidas que 
 se correspondan con las variables de la tabla.
 
@@ -461,7 +461,7 @@ filter <- list(values = c("producto interior", "datos ajustados", "variación an
 
 
 # Obtenemos los datos de la tabla
-pib <- get_data_table(idTable = 30679, filter = filter, unnest = TRUE,
+pib <- get_data_table(idTable = 67822, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 5, validate = FALSE)
 
 pib[,c("Nombre","T3_Periodo","Anyo","Valor")]
@@ -475,17 +475,17 @@ Para obtener los datos de una única serie es necesario conocer su código ident
 Una vez se conoce el código de la serie de interés, se puede utilizar la función [get_data_series()](https://es-ine.github.io/ineapir/reference/get_data_series.html) para obtener los datos de interés.
 
 #### **Obtener el último periodo de una serie**
-Por ejemplo, para la serie con código [IPC251856](https://www.ine.es/consul/serie.do?s=IPC251856)
+Por ejemplo, para la serie con código [IPC290750](https://www.ine.es/consul/serie.do?s=IPC290750)
 
 ```{r series1, exercise=TRUE}
-series <- get_data_series(codSeries = "IPC251856", tip = "A")
+series <- get_data_series(codSeries = "IPC290750", tip = "A")
 series$Data
 ```
 
 #### **Obtener los últimos 5 periodos de una serie**
 
 ```{r series2, exercise=TRUE}
-series <- get_data_series(codSeries = "IPC251856", tip = "A", nlast = 5, unnest = TRUE)
+series <- get_data_series(codSeries = "IPC290750", tip = "A", nlast = 5, unnest = TRUE)
 series
 ```
 
@@ -493,7 +493,7 @@ series
 Por ejemplo, entre 01/01/2023 y 01/04/2023
 
 ```{r series3, exercise=TRUE}
-series <- get_data_series(codSeries = "IPC251856", tip = "A", unnest = TRUE, dateStart = "2023/01/01", 
+series <- get_data_series(codSeries = "IPC290750", tip = "A", unnest = TRUE, dateStart = "2023/01/01", 
                           dateEnd = "2023/04/01")
 series
 ```
@@ -502,7 +502,7 @@ series
 Por ejemplo, a partir de 01/01/2024
 
 ```{r series4, exercise=TRUE}
-series <- get_data_series(codSeries = "IPC251856", tip = "A", unnest = TRUE, dateStart = "2024/01/01")
+series <- get_data_series(codSeries = "IPC290750", tip = "A", unnest = TRUE, dateStart = "2024/01/01")
 series
 ```
 
@@ -672,24 +672,24 @@ head(tables)
 
 Una tabla está definida por diferentes grupos o combos de selección y cada uno de ellos por los valores que toman una o varias variables. La consulta de los valores y las variables que constituyen la tabla se puede realizar en dos partes:
 
-1.  Primera parte de la consulta: Grupos o combos de selección que definen a la tabla "[Índices por comunidades autónomas: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=50913)" (Id 50913)
+1.  Primera parte de la consulta: Grupos o combos de selección que definen a la tabla "[Índices por comunidades autónomas: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=76136)" (Id 76136)
 
 ```{r infotab2, exercise=TRUE}
-groups <- get_metadata_table_groups(idTable = 50913)
+groups <- get_metadata_table_groups(idTable = 76136)
 groups
 ```    
 
-2.  Segunda parte de la consulta: Valores del grupo "Comunidades y Ciudades Autónomas" (Id=110924) perteneciente a la tabla "[Índices por comunidades autónomas: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=50913)" (Id=50913)
+2.  Segunda parte de la consulta: Valores del grupo "Comunidades y Ciudades Autónomas" (Id=155612) perteneciente a la tabla "[Índices por comunidades autónomas: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Tabla.htm?t=76136)" (Id=76136)
 
 ```{r infotab3, exercise=TRUE}
-values <- get_metadata_table_values(idTable = 50913, idGroup = 110924)
+values <- get_metadata_table_values(idTable = 76136, idGroup = 155612)
 values
 ```
 
 Alternativamente, podemos utilizar la función [get_metadata_table_varval()](https://es-ine.github.io/ineapir/reference/get_metadata_table_varval.html) en un sólo paso.
 
 ```{r infotab4, exercise=TRUE}
-values <- get_metadata_table_varval(idTable = 50913)
+values <- get_metadata_table_varval(idTable = 76136)
 values
 ```
 
@@ -697,26 +697,26 @@ values
 En lo que se refiere a las series, se puede obtener información de una serie con la función [get_metadata_series()](https://es-ine.github.io/ineapir/reference/get_metadata_series.html), así como de las variables y valores que la definen con la función [get_metadata_series_values()](https://es-ine.github.io/ineapir/reference/get_metadata_series_values.html). Además, también se puede obtener un listado de las series de una tabla con la función [get_metadata_series_table()](https://es-ine.github.io/ineapir/reference/get_metadata_series_table.html) y un listado de las series de una operación [get_metadata_series_operation()](https://es-ine.github.io/ineapir/reference/get_metadata_series_operation.html).
 
 #### **Obtener información de una serie**
-Por ejemplo, de la serie que recoge los datos del índice general del IPC ([IPC251852](https://www.ine.es/consul/serie.do?s=IPC251852)) que recoge la variación mensual del Índice de precios de consumo
+Por ejemplo, de la serie que recoge los datos del índice general del IPC ([IPC290750](https://www.ine.es/consul/serie.do?s=IPC290750)) que recoge la variación anual del Índice de precios de consumo
 
 ```{r infoserie1, exercise=TRUE}
-series <- get_metadata_series(codSeries = "IPC251852")
+series <- get_metadata_series(codSeries = "IPC290750")
 as.data.frame(series)
 ```
 
 #### **Obtener las variables y valores que definen una serie**
-Por ejemplo, de la serie que recoge los datos del índice general del IPC ([IPC251852](https://www.ine.es/consul/serie.do?s=IPC251852))
+Por ejemplo, de la serie que recoge los datos del índice general del IPC ([IPC290750](https://www.ine.es/consul/serie.do?s=IPC290750))
 
 ```{r infoserie2, exercise=TRUE}
-values <- get_metadata_series_values(codSeries = "IPC251852")
+values <- get_metadata_series_values(codSeries = "IPC290750")
 values
 ```
 
 #### **Obtener el listado de series de una tabla**
-Por ejemplo, las series de la tabla "[Índices por comunidades autónomas: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Datos.htm?t=50913)" de la operación IPC (Id 50913).
+Por ejemplo, las series de la tabla "[Índices por comunidades autónomas: general y de grupos ECOICOP](https://www.ine.es/jaxiT3/Datos.htm?t=76136)" de la operación IPC (Id 76136).
 
 ```{r infoserie3, exercise=TRUE}
-series <- get_metadata_series_table(idTable = 50913)
+series <- get_metadata_series_table(idTable = 76136)
 head(series)
 ```
 
@@ -728,7 +728,7 @@ filter <- list("3" = "74" ,     # variable id = 3, value id = 74
                )
 
 # Obtenemos los datos filtrados 
-series <- get_metadata_series_table(idTable = 50913, filter = filter)
+series <- get_metadata_series_table(idTable = 76136, filter = filter)
 series
 ```
 
@@ -801,7 +801,7 @@ filter <- list("3" = "74" ,      # variable id = 3, valor id = 74
                )
 
 # Con verbose = TRUE and validate = TRUE
-ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 2, verbose = TRUE, validate = TRUE)
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
@@ -813,7 +813,7 @@ filter <- list("3" = "74" ,      # variable id = 3, valor id = 74
                )
 
 # Con verbose = TRUE and validate = FALSE
-ipc <- get_data_table(idTable = 50913, filter = filter, unnest = TRUE,
+ipc <- get_data_table(idTable = 76136, filter = filter, unnest = TRUE,
                       tip = "A", nlast = 2, verbose = TRUE, validate = FALSE)
 ipc[,c("Nombre","T3_Periodo","Anyo","Valor")]
 ```
@@ -836,7 +836,7 @@ Cuando obtenemos datos de tablas y series utilizando las funciones `get_data_tab
 filter <- list(values = c("variación anual" , "variación mensual", "índice general"))
 
 # Obtenemos los datos con unnest = FALSE
-ipc <- get_data_table(idTable = 50902, filter = filter, tip = "A", nlast = 3)
+ipc <- get_data_table(idTable = 76125, filter = filter, tip = "A", nlast = 3)
 
 # Tenemos dos filas (series)
  ipc[,c("Nombre", "Data")]
@@ -852,7 +852,7 @@ Si queremos obtener un sólo dataframe con todos los valores utilizamos `unnest 
 filter <- list(values = c("variación anual" , "variación mensual", "índice general"))
 
 # Obtenemos los datos con unnest = FALSE
-ipc <- get_data_table(idTable = 50902, filter = filter, tip = "A",
+ipc <- get_data_table(idTable = 76125, filter = filter, tip = "A",
                       nlast = 3, unnest = TRUE)
 
 # Único dataframe con 6 filas
